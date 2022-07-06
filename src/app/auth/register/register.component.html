@@ -1,0 +1,65 @@
+<app-auth-nav-menu></app-auth-nav-menu>
+
+<div class="wrapper">
+  <form
+    class="form"
+    novalidate
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <h1 class="form-heading">Sign Up</h1>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        placeholder="Type your email"
+        formControlName="email"
+        required
+      />
+      <mat-error>{{ emailErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Full name</mat-label>
+      <input
+        matInput
+        placeholder="Type your full name"
+        formControlName="fullName"
+        required
+      />
+      <mat-error>{{ fullNameErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="Minimum 5 symbols"
+        formControlName="password"
+        required
+      />
+      <mat-error>{{ passwordErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Avatar URL</mat-label>
+      <input matInput placeholder="Attach URL" formControlName="avatarUrl" />
+      <!-- <mat-error></mat-error> -->
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      class="form-btn"
+      type="submit"
+      [disabled]="registerForm.invalid || registerForm.disabled || !!formError"
+    >
+      Sign Up
+    </button>
+
+    <mat-error *ngIf="formError">{{ formError }}</mat-error>
+  </form>
+</div>
