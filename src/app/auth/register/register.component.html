@@ -1,6 +1,6 @@
 <app-auth-nav-menu></app-auth-nav-menu>
 
-<div class="wrapper">
+<div class="wrapper" *ngIf="!(loaded$ | async)">
   <form
     class="form"
     novalidate
@@ -55,11 +55,15 @@
       color="primary"
       class="form-btn"
       type="submit"
-      [disabled]="registerForm.invalid || registerForm.disabled || !!formError"
+      [disabled]="
+        registerForm.invalid || registerForm.disabled || (loading$ | async)
+      "
     >
       Sign Up
     </button>
 
-    <mat-error *ngIf="formError">{{ formError }}</mat-error>
+    <mat-error *ngIf="serverError$ | async">
+      {{ serverError$ | async }}
+    </mat-error>
   </form>
 </div>

@@ -4,3 +4,10 @@ export interface IRegisterData  {
   password: string
   avatarUrl: string
 }
+
+export interface IAuthServerResponse {
+  email: string
+  fullName: string
+  avatarUrl: string
+  token: string
+}

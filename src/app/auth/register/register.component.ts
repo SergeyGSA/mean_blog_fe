@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
-import { Subscription } from 'rxjs'
+import { select, Store } from '@ngrx/store'
+import { Observable } from 'rxjs'
 
 import { IRegisterData } from '../auth.interface'
-import { AuthService } from '../auth.service'
+import { register } from 'src/app/store/auth-store/register/register.actions'
+import { getLoaded, getLoading, getServerError } from 'src/app/store/auth-store/register/register.selectors'
 
 
 @Component({
@@ -12,13 +13,14 @@ import { AuthService } from '../auth.service'
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit {
   public registerForm!: FormGroup
-  private regSub: Subscription | null
 
-  @Input() public formError = ''
+  public loading$: Observable<boolean> = this.store$.pipe(select(getLoading))
+  public loaded$: Observable<boolean> = this.store$.pipe(select(getLoaded))
+  public serverError$: Observable<string> = this.store$.pipe(select(getServerError))
 
-  get emailErrors(): string {
+  public get emailErrors(): string {
     if (this.registerForm.controls['email'].hasError('required')) {
       return "Email can't be empty";
     }
@@ -26,7 +28,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerForm.controls['email'].hasError('email') ? 'Not a valid email' : ''
   }
 
-  get fullNameErrors(): string {
+  public get fullNameErrors(): string {
     if (this.registerForm.controls['fullName'].hasError('required')) {
       return "Full name can't be empty";
     }
@@ -34,32 +36,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerForm.controls['fullName'].hasError('minlength') ? 'Full name must be more than 3 symbols' : ''
   }
 
-  get passwordErrors(): string {
+  public get passwordErrors(): string {
     if (this.registerForm.controls['password'].hasError('required')) {
       return "Password can't be empty";
     }
 
     return this.registerForm.controls['password'].hasError('minlength') ? 'Password must be more than 5 symbols' : ''
   }
+  //TODO: create validation getter for avatarUrl 
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-    ) {  
-    this.regSub = null
-  }
+  constructor( private store$: Store ) {}
 
   ngOnInit(): void {
     this.initForm()
   }
 
-  ngOnDestroy(): void {
-    if (this.regSub) this.regSub.unsubscribe()
-  }
-
-  onSubmit(): void {
-    this.registerForm.disable()
-
+  public onSubmit(): void {
     const newUser: IRegisterData = {
       email: this.registerForm.value.email.trim(),
       fullName: this.registerForm.value.fullName.trim(),
@@ -67,13 +59,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       avatarUrl: this.registerForm.value.avatarUrl.trim()
     }
 
-    this.regSub = this.authService.register(newUser).subscribe(
-      data => this.router.navigate(['auth/login']),
-      err => {
-        console.error(err)
-        this.registerForm.enable()
-      }
-    )
+    this.store$.dispatch(register(newUser))
   }
 
   private initForm(): void {
@@ -81,7 +67,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       email: new FormControl('', [Validators.required, Validators.email]),
       fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      avatarUrl: new FormControl('')
+      // TODO: Add url regex for avatarUrl validators 
+      avatarUrl: new FormControl('', [Validators.required])
     }) 
   }
 }
