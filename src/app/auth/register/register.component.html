@@ -47,7 +47,9 @@
     <mat-form-field>
       <mat-label>Avatar URL</mat-label>
       <input matInput placeholder="Attach URL" formControlName="avatarUrl" />
-      <!-- <mat-error></mat-error> -->
+      <mat-error>
+        {{ avatarUrlErrors }}
+      </mat-error>
     </mat-form-field>
 
     <button
