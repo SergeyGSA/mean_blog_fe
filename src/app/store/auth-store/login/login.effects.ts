@@ -3,21 +3,19 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { of } from 'rxjs'
 import { map, catchError, switchMap } from 'rxjs/operators'
 import { AuthService } from '../../../auth/services/auth.service'
-import { register, registerFailure, registerSuccess } from './register.actions'
+import { login, loginFailure, loginSuccess } from './login.actions'
 
 @Injectable()
-export class RegisterEffects {
+export class LoginEffects {
 
-  register$ = createEffect(() => this.actions$.pipe(
-    ofType(register),
-    switchMap(action => this.authService.register({
+  login$ = createEffect(() => this.actions$.pipe(
+    ofType(login),
+    switchMap(action => this.authService.login({
       email: action.email,
-      fullName: action.fullName,
       password: action.password,
-      avatarUrl: action.avatarUrl
     }).pipe(
-      map(registerSuccessData => registerSuccess(registerSuccessData)),
-      catchError(error => of(registerFailure({serverError: error.message})))
+      map(loginSuccessData => loginSuccess(loginSuccessData)),
+      catchError(error => of(loginFailure({serverError: error.message})))
     ))
 
   ))

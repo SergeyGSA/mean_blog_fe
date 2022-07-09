@@ -11,3 +11,15 @@ export interface IAuthServerResponse {
   avatarUrl: string
   token: string
 }
+
+export interface ILoginData {
+  email: string
+  password: string
+}
+
+export interface IAuthState {
+  loading: boolean
+  loaded: boolean
+  serverError: string
+  serverResponse?: IAuthServerResponse
+}

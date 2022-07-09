@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store"
-import { IRegisterState } from "./register.reducer"
+import { IAuthState } from "../../../auth/auth.interface"
 
-const getFeature = createFeatureSelector<IRegisterState>('register')
+const getFeature = createFeatureSelector<IAuthState>('register')
 
 export const getLoading = createSelector(
   getFeature,

@@ -5,7 +5,8 @@ import { StoreModule } from '@ngrx/store'
 
 import { registerReducer } from './register/register.reducer'
 import { RegisterEffects } from './register/register.effects'
-
+import { loginReducer } from './login/login.reducer'
+import { LoginEffects } from './login/login.effects'
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { RegisterEffects } from './register/register.effects'
   imports: [
     CommonModule,
     StoreModule.forFeature('register', registerReducer),
-    EffectsModule.forFeature([RegisterEffects])
+    StoreModule.forFeature('login', loginReducer),
+    EffectsModule.forFeature([RegisterEffects, LoginEffects])
   ]
 })
 export class AuthStoreModule { }

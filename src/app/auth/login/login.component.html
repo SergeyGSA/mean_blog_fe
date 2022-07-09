@@ -1,3 +1,43 @@
 <app-auth-nav-menu></app-auth-nav-menu>
 
-<p>login works!</p>
+<div class="wrapper" *ngIf="!(loaded$ | async)">
+  <form class="form" novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1 class="form-heading">Sign In</h1>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        placeholder="Type your email"
+        required
+        formControlName="email"
+      />
+      <mat-error>{{ emailErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="Type your password"
+        required
+        formControlName="password"
+      />
+      <mat-error>{{ passwordErrors }}</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      class="form-btn"
+      type="submit"
+      [disabled]="loginForm.disabled || loginForm.invalid || (loading$ | async)"
+    >
+      Sign In
+    </button>
+
+    <mat-error>{{ serverError$ | async }}</mat-error>
+  </form>
+</div>
