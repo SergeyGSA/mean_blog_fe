@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { select, Store } from '@ngrx/store'
-import { Observable, Subscription } from 'rxjs'
+import { Observable } from 'rxjs'
+import { signIn } from 'src/app/store/auth-store/active-nav/active-nav.actions'
 import { login } from 'src/app/store/auth-store/login/login.actions'
 import { getLoaded, getLoading, getServerError } from 'src/app/store/auth-store/login/login.selectors'
 import { ILoginData } from '../auth.interface'
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
+    this.store$.dispatch(signIn())
   }
 
   public onSubmit(): void {

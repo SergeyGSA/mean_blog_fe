@@ -6,6 +6,7 @@ import { Observable } from 'rxjs'
 import { IRegisterData } from '../auth.interface'
 import { register } from 'src/app/store/auth-store/register/register.actions'
 import { getLoaded, getLoading, getServerError } from 'src/app/store/auth-store/register/register.selectors'
+import { signUp } from 'src/app/store/auth-store/active-nav/active-nav.actions'
 
 
 @Component({
@@ -58,6 +59,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
+    this.store$.dispatch(signUp())
   }
 
   public onSubmit(): void {
