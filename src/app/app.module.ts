@@ -10,8 +10,6 @@ import { DEFAULT_ROUTER_FEATURENAME, routerReducer, StoreRouterConnectingModule 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { environment } from '../environments/environment'
-import { AuthStoreModule } from './store/auth-store/auth-store.module'
-
 
 @NgModule({
   declarations: [
@@ -27,8 +25,7 @@ import { AuthStoreModule } from './store/auth-store/auth-store.module'
     }, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot(),
-    AuthStoreModule
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

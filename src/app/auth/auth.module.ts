@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component'
 import { LoginComponent } from './login/login.component'
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component'
 import { AuthService } from './services/auth.service'
+import { AuthStoreModule } from '../store/auth-store/auth-store.module'
 
 const routes: Routes = [
   {
@@ -39,7 +40,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    AuthStoreModule
   ],
   providers: [AuthService]
 })
