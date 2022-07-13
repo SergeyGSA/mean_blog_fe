@@ -1,5 +1,3 @@
-<app-auth-nav-menu></app-auth-nav-menu>
-
 <div class="wrapper" *ngIf="!(loaded$ | async)">
   <form class="form" novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h1 class="form-heading">Sign In</h1>

@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button'
 
 import { RegisterComponent } from './register/register.component'
 import { LoginComponent } from './login/login.component'
-import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component'
 import { AuthService } from './services/auth.service'
 import { AuthStoreModule } from '../store/auth-store/auth-store.module'
 
@@ -31,8 +30,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent,
-    AuthNavMenuComponent
+    LoginComponent
   ],
   imports: [
     CommonModule,

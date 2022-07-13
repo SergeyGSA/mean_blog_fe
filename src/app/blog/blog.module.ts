@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule, Routes } from '@angular/router'
+
+import {MatButtonModule} from '@angular/material/button'
+
 import { BlogComponent } from './blog/blog.component'
+import { NavMenuComponent } from './nav-menu/nav-menu.component'
 
 const routes: Routes = [
   {
@@ -12,11 +16,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    BlogComponent
+    BlogComponent,
+    NavMenuComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatButtonModule
   ]
 })
 export class BlogModule { }
