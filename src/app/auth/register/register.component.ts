@@ -17,9 +17,9 @@ import { signUp } from 'src/app/store/auth-store/active-nav/active-nav.actions'
 export class RegisterComponent implements OnInit {
   public registerForm!: FormGroup
 
-  public loading$: Observable<boolean> = this.store$.pipe(select(getLoading))
-  public loaded$: Observable<boolean> = this.store$.pipe(select(getLoaded))
-  public serverError$: Observable<string> = this.store$.pipe(select(getServerError))
+  public loading$: Observable<boolean> = this.store.pipe(select(getLoading))
+  public loaded$: Observable<boolean> = this.store.pipe(select(getLoaded))
+  public serverError$: Observable<string> = this.store.pipe(select(getServerError))
 
   private regexpUrl = /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi
 
@@ -55,11 +55,11 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls['avatarUrl'].hasError('pattern') ? 'Provide a valid url address' : '' 
   }
 
-  constructor( private store$: Store ) {}
+  constructor( private store: Store ) {}
 
   ngOnInit(): void {
     this.initForm()
-    this.store$.dispatch(signUp())
+    this.store.dispatch(signUp())
   }
 
   public onSubmit(): void {
@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
       avatarUrl: this.registerForm.value.avatarUrl.trim()
     }
 
-    this.store$.dispatch(register(newUser))
+    this.store.dispatch(register(newUser))
   }
 
   private initForm(): void {

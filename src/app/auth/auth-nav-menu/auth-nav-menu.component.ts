@@ -9,10 +9,10 @@ import { getSignIn, getSignUp } from 'src/app/store/auth-store/active-nav/acive-
   styleUrls: ['./auth-nav-menu.component.scss']
 })
 export class AuthNavMenuComponent implements OnInit {
-  public signIn$: Observable<string> = this.store$.pipe(select(getSignIn))
-  public signUp$: Observable<string> = this.store$.pipe(select(getSignUp))
+  public signIn$: Observable<string> = this.store.pipe(select(getSignIn))
+  public signUp$: Observable<string> = this.store.pipe(select(getSignUp))
 
-  constructor( private store$: Store ) { }
+  constructor( private store: Store ) { }
 
   ngOnInit(): void {
   }
