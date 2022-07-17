@@ -1,13 +1,13 @@
 .nav{
   &-container {
-    padding: 30px 100px;
+    padding: 20px 100px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     border-bottom: 2px solid #000;
   }
 
-  &-link {
+  &-item {
     text-decoration: none;
     font-weight: 500;
     transition: 0.5s ease-in-out;
@@ -17,10 +17,14 @@
       color: #fff;
     }
 
+    // Canceled hover effect for sign out button
+    &:is(button):hover{
+      background-color: #F44336;
+    }
+
     &:first-child {
       margin-right: 15px;
     }
   }
 }
-
 

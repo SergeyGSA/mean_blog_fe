@@ -1,0 +1,31 @@
+<nav>
+  <div class="nav-container" *ngIf="!(loaded$ | async); else loadedBlock">
+    <a
+      mat-raised-button
+      class="nav-item"
+      [color]="signIn$ | async"
+      routerLink="/auth/login"
+    >
+      Sign In
+    </a>
+    <a
+      mat-raised-button
+      class="nav-item"
+      [color]="signUp$ | async"
+      routerLink="/auth/register"
+    >
+      Sign Up
+    </a>
+  </div>
+
+  <ng-template #loadedBlock>
+    <div class="nav-container">
+      <a mat-raised-button class="nav-item" routerLink="">
+        Create
+      </a>
+      <button mat-raised-button class="nav-item" color="warn">
+        Sign Out
+      </button>
+    </div>
+  </ng-template>
+</nav>

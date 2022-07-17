@@ -7,7 +7,6 @@ import { registerReducer } from './register/register.reducer'
 import { RegisterEffects } from './register/register.effects'
 import { loginReducer } from './login/login.reducer'
 import { LoginEffects } from './login/login.effects'
-import { activeNavReducer } from './active-nav/active-nav.reducer'
 
 
 @NgModule({
@@ -16,7 +15,6 @@ import { activeNavReducer } from './active-nav/active-nav.reducer'
     CommonModule,
     StoreModule.forFeature('register', registerReducer),
     StoreModule.forFeature('login', loginReducer),
-    StoreModule.forFeature('activeNav', activeNavReducer),
     EffectsModule.forFeature([RegisterEffects, LoginEffects])
   ]
 })
