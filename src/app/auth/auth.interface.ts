@@ -5,14 +5,11 @@ export interface IRegisterData  {
   avatarUrl: string
 }
 
-export interface IServerResponseUserData {
-  email: string
-  id: string
-}
 export interface IAuthServerResponse {
-  accessToken: string
-  refreshToken: string
-  user: IServerResponseUserData
+  email: string
+  fullName: string
+  avatarUrl: string
+  token: string
 }
 
 export interface ILoginData {

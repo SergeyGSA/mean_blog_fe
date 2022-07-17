@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { getSignIn, getSignUp } from '../../store/auth-store/active-nav/acive-nav.seletors'
+import { getSignIn, getSignUp } from '../../store/auth-store/active-nav/active-nav.selectors'
 
 @Component({
   selector: 'app-nav-menu',
