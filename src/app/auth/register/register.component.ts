@@ -8,7 +8,6 @@ import { register } from 'src/app/store/auth-store/register/register.actions'
 import { getLoaded, getLoading, getServerError } from 'src/app/store/auth-store/register/register.selectors'
 import { signUp } from 'src/app/store/shared-store/active-nav/active-nav.actions'
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
