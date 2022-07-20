@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   public loading$: Observable<boolean> = this.store.pipe(select(getLoading))
   public serverError$: Observable<string> = this.store.pipe(select(getServerError))
 
-
   public get emailErrors(): string {
     if (this.loginForm.controls['email'].hasError('required')) {
       return "Email can't be empty"
@@ -33,7 +32,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls['password'].hasError('required') ? "Password can't be empty" : ''
   }
 
-  constructor( private store: Store ) { }
+  constructor( private readonly store: Store ) { }
 
   ngOnInit(): void {
     this.initForm()

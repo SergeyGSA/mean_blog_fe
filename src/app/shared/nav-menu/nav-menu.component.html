@@ -1,6 +1,5 @@
 <nav>
-  <!-- TODO: Rework -->
-  <div class="nav-container" *ngIf="true; else loadedBlock">
+  <div class="nav-container" *ngIf="!(isAuth$ | async); else loadedBlock">
     <a
       mat-raised-button
       class="nav-item"

@@ -17,3 +17,18 @@ export const getServerError = createSelector(
   getFeature,
   state => state.serverError
 )
+
+export const getServerResponse = createSelector(
+  getFeature,
+  state => state.serverResponse
+)
+
+export const getTokens = createSelector(
+  getServerResponse,
+  serverResponse => serverResponse && {'accessToken': serverResponse.accessToken, 'refreshToken': serverResponse.refreshToken} 
+)
+
+export const isAuth = createSelector(
+  getTokens,
+  tokens => !!tokens?.accessToken
+)

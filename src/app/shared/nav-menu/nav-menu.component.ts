@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 
 import { getSignIn, getSignUp } from '../../store/shared-store/active-nav/active-nav.selectors'
+import { isAuth } from 'src/app/store/auth-store/login/login.selectors'
 
 @Component({
   selector: 'app-nav-menu',
@@ -12,8 +13,9 @@ import { getSignIn, getSignUp } from '../../store/shared-store/active-nav/active
 export class NavMenuComponent implements OnInit {
   public signIn$: Observable<string> = this.store.pipe(select(getSignIn))
   public signUp$: Observable<string> = this.store.pipe(select(getSignUp))
+  public isAuth$: Observable<boolean> = this.store.pipe(select(isAuth))
 
-  constructor( private store: Store ) { }
+  constructor( private readonly store: Store ) { }
 
   ngOnInit(): void {
   }
