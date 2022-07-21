@@ -1,17 +1,38 @@
 import { createReducer, on } from "@ngrx/store"
 import { IAuthState } from "src/app/auth/auth.interface"
-import { login, loginFailure, loginSuccess } from "./login.actions"
+import { register, registerFailure, registerSuccess, login, loginSuccess, loginFailure } from "./auth.actions"
 
 const initialState: IAuthState = {
   loaded: false,
   loading: false,
-  serverError: '',
-  serverResponse: {accessToken: '', refreshToken: '', user: {id: '', email: ''}}
+  serverError: ''
 }
 
-export const loginReducer = createReducer(
+export const authReducer = createReducer(
   initialState,
 
+  // REGISTER
+  on(register, state => ({
+    ...state,
+    loading: true
+  })),
+
+  on(registerSuccess, (state, serverResponse) => ({
+    ...state,
+    serverResponse,
+    loaded: true,
+    loading: false,
+    serverError: ''
+  })),
+
+  on(registerFailure, (state, {serverError}) => ({
+    ...state,
+    loaded: false,
+    loading: false,
+    serverError
+  })),
+
+  // LOGIN
   on(login, state => ({
     ...state,
     loading: true,
@@ -31,5 +52,5 @@ export const loginReducer = createReducer(
     loaded: false,
     loading: false,
     serverError
-  })),
+  }))
 )

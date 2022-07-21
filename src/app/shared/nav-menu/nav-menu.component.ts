@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 
 import { getSignIn, getSignUp } from '../../store/shared-store/active-nav/active-nav.selectors'
-import { isAuth } from 'src/app/store/auth-store/login/login.selectors'
+import { isAuth } from 'src/app/store/auth-store/auth.selectors'
 
 @Component({
   selector: 'app-nav-menu',

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store"
 import { IAuthState } from "src/app/auth/auth.interface"
 
-const getFeature = createFeatureSelector<IAuthState>('login')
+const getFeature = createFeatureSelector<IAuthState>('auth')
 
 export const getLoaded = createSelector(
   getFeature,
@@ -20,7 +20,7 @@ export const getServerError = createSelector(
 
 export const getServerResponse = createSelector(
   getFeature,
-  state => state?.serverResponse
+  state => state.serverResponse
 )
 
 export const getTokens = createSelector(

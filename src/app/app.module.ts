@@ -28,14 +28,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor'
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot()
   ],
-  providers: [
-    // TODO: Rework interceptor's provide
-    { 
-      provide: HTTP_INTERCEPTORS, 
-      useClass: AuthInterceptor,  
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

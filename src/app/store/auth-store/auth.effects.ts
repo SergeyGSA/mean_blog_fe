@@ -2,11 +2,24 @@ import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { of } from 'rxjs'
 import { map, catchError, switchMap } from 'rxjs/operators'
-import { AuthService } from '../../../auth/services/auth.service'
-import { login, loginFailure, loginSuccess } from './login.actions'
+import { AuthService } from '../../auth/services/auth.service'
+import { login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from './auth.actions'
 
 @Injectable()
-export class LoginEffects {
+export class AuthEffects {
+
+  register$ = createEffect(() => this.actions$.pipe(
+    ofType(register),
+    switchMap(action => this.authService.register({
+      email: action.email,
+      fullName: action.fullName,
+      password: action.password,
+      avatarUrl: action.avatarUrl
+    }).pipe(
+      map(registerSuccessData => registerSuccess(registerSuccessData)),
+      catchError(error => of(registerFailure({serverError: error.message})))
+    ))
+  ))
 
   login$ = createEffect(() => this.actions$.pipe(
     ofType(login),
@@ -17,7 +30,6 @@ export class LoginEffects {
       map(loginSuccessData => loginSuccess(loginSuccessData)),
       catchError(error => of(loginFailure({serverError: error.message})))
     ))
-
   ))
 
   constructor(

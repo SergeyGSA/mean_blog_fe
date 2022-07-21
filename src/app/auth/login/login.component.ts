@@ -4,9 +4,10 @@ import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 
 import { signIn } from 'src/app/store/shared-store/active-nav/active-nav.actions'
-import { login } from 'src/app/store/auth-store/login/login.actions'
-import { getLoaded, getLoading, getServerError } from 'src/app/store/auth-store/login/login.selectors'
+import { login } from 'src/app/store/auth-store/auth.actions'
+import { getLoaded, getLoading, getServerError } from 'src/app/store/auth-store/auth.selectors'
 import { ILoginData } from '../auth.interface'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls['password'].hasError('required') ? "Password can't be empty" : ''
   }
 
-  constructor( private readonly store: Store ) { }
+  constructor( private readonly store: Store, private readonly router: Router ) { }
 
   ngOnInit(): void {
     this.initForm()
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.store.dispatch(login(loginData))
+    this.router.navigate(['/'])
   }
 
   private initForm(): void {
