@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { of } from 'rxjs'
-import { map, catchError, switchMap } from 'rxjs/operators'
+import { map, catchError, switchMap, delay } from 'rxjs/operators'
+import { IAuthServerResponse } from 'src/app/auth/auth.interface'
 import { AuthService } from '../../auth/services/auth.service'
 import { login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from './auth.actions'
 
@@ -16,7 +17,7 @@ export class AuthEffects {
       password: action.password,
       avatarUrl: action.avatarUrl
     }).pipe(
-      map(registerSuccessData => registerSuccess(registerSuccessData)),
+      map((registerSuccessData: IAuthServerResponse) => registerSuccess(registerSuccessData)),
       catchError(error => of(registerFailure({serverError: error.message})))
     ))
   ))
@@ -27,13 +28,21 @@ export class AuthEffects {
       email: action.email,
       password: action.password,
     }).pipe(
-      map(loginSuccessData => loginSuccess(loginSuccessData)),
+      map((loginSuccessData: IAuthServerResponse) => loginSuccess(loginSuccessData)),
       catchError(error => of(loginFailure({serverError: error.message})))
     ))
   ))
 
+  // refresh$ = createEffect(() => this.actions$.pipe(
+  //   ofType(loginSuccess || registerSuccess),
+  //   delay(5000),
+  //   switchMap(() => this.authService.refresh().pipe(
+  //     map((loginSuccessData: IAuthServerResponse) => loginSuccess(loginSuccessData))
+  //   ))
+  // ))
+
   constructor(
-    private actions$: Actions,
-    private authService: AuthService
+    private readonly actions$: Actions,
+    private readonly authService: AuthService
   ) {}
 }

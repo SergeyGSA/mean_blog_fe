@@ -14,6 +14,11 @@ export interface IAuthServerResponse {
   accessToken: string
   refreshToken: string
   user: IServerResponseUserData
+  // data from decoded token
+  id: string
+  email: string
+  iat: number
+  exp: number
 }
 
 export interface ILoginData {

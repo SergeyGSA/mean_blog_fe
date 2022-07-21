@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store"
-import { IAuthState } from "src/app/auth/auth.interface"
+import { IAuthServerResponse, IAuthState } from "src/app/auth/auth.interface"
 import { register, registerFailure, registerSuccess, login, loginSuccess, loginFailure } from "./auth.actions"
 
 const initialState: IAuthState = {
@@ -17,7 +17,7 @@ export const authReducer = createReducer(
     loading: true
   })),
 
-  on(registerSuccess, (state, serverResponse) => ({
+  on(registerSuccess, (state, {type, ...serverResponse} : {type: string} & IAuthServerResponse) => ({
     ...state,
     serverResponse,
     loaded: true,
@@ -39,7 +39,7 @@ export const authReducer = createReducer(
     serverError: ''
   })),
 
-  on(loginSuccess, (state, serverResponse) => ({
+  on(loginSuccess, (state, {type, ...serverResponse} : {type: string} & IAuthServerResponse) => ({
     ...state,
     serverResponse,
     loaded: true,
