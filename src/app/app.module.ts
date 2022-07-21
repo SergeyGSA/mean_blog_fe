@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
@@ -10,6 +10,7 @@ import { DEFAULT_ROUTER_FEATURENAME, routerReducer, StoreRouterConnectingModule 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { environment } from '../environments/environment'
+import { AuthInterceptor } from './auth/interceptors/auth.interceptor'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,14 @@ import { environment } from '../environments/environment'
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    // TODO: Rework interceptor's provide
+    { 
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthInterceptor,  
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

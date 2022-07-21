@@ -5,7 +5,8 @@ import { login, loginFailure, loginSuccess } from "./login.actions"
 const initialState: IAuthState = {
   loaded: false,
   loading: false,
-  serverError: ''
+  serverError: '',
+  serverResponse: {accessToken: '', refreshToken: '', user: {id: '', email: ''}}
 }
 
 export const loginReducer = createReducer(

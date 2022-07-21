@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { CommonModule } from '@angular/common'
-import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -14,7 +13,6 @@ import { AuthService } from './services/auth.service'
 import { AuthStoreModule } from '../store/auth-store/auth-store.module'
 import { SharedModule } from '../shared/shared.module'
 import { SharedStoreModule } from '../store/shared-store/shared-store.module'
-import { AuthInterceptor } from './interceptors/auth.interceptor'
 
 const routes: Routes = [
   {
@@ -47,14 +45,7 @@ const routes: Routes = [
     SharedModule,
     SharedStoreModule
   ],
-  providers: [
-    AuthService,   
-    { 
-      provide: HTTP_INTERCEPTORS, 
-      useClass: AuthInterceptor,  
-      multi: true
-    }
-  ]
+  providers: [AuthService]
 })
 
 export class AuthModule { }
