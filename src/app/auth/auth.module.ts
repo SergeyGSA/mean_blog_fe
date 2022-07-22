@@ -52,11 +52,11 @@ const routes: Routes = [
   providers: [
     AuthService,
     // TODO: Rework interceptor's provide
-    { 
-      provide: HTTP_INTERCEPTORS, 
-      useClass: AuthInterceptor,  
-      multi: true
-    }
+    // { 
+    //   provide: HTTP_INTERCEPTORS, 
+    //   useClass: AuthInterceptor,  
+    //   multi: true
+    // }
   ]
 })
 
