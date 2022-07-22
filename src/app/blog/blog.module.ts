@@ -24,7 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
     SharedStoreModule,
-    MatButtonModule,
+    MatButtonModule
   ]
 })
 export class BlogModule { }

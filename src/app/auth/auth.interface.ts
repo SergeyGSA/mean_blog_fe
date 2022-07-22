@@ -5,15 +5,17 @@ export interface IRegisterData  {
   avatarUrl: string
 }
 
-export interface IServerResponseUserData  {
+export interface IUserData  {
   email: string
   id: string
+  fullName: string
+  avatarUrl: string
 }
 
 export interface IAuthServerResponse {
   accessToken: string
   refreshToken: string
-  user: IServerResponseUserData
+  user: IUserData
   // data from decoded token
   id: string
   email: string

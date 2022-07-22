@@ -1,31 +1,54 @@
-<nav>
-  <div class="nav-container" *ngIf="!(isAuth$ | async); else loadedBlock">
-    <a
-      mat-raised-button
-      class="nav-item"
-      [color]="signIn$ | async"
-      routerLink="/auth/login"
-    >
-      Sign In
-    </a>
-    <a
-      mat-raised-button
-      class="nav-item"
-      [color]="signUp$ | async"
-      routerLink="/auth/register"
-    >
-      Sign Up
-    </a>
+<header class="header">
+  <div class="logo">
+    <img
+      src="https://material.angular.io/assets/img/homepage/angular-white-transparent.svg"
+      alt="Angular"
+    />
   </div>
-
-  <ng-template #loadedBlock>
-    <div class="nav-container">
-      <a mat-raised-button class="nav-item" routerLink="">
-        Create
+  <nav class="nav">
+    <div class="nav-container" *ngIf="!(isAuth$ | async); else loadedBlock">
+      <a
+        mat-raised-button
+        class="nav-item"
+        [color]="signIn$ | async"
+        routerLink="/auth/login"
+      >
+        Sign In
       </a>
-      <button mat-raised-button class="nav-item" color="warn">
-        Sign Out
-      </button>
+      <a
+        mat-raised-button
+        class="nav-item"
+        [color]="signUp$ | async"
+        routerLink="/auth/register"
+      >
+        Sign Up
+      </a>
     </div>
-  </ng-template>
-</nav>
+
+    <ng-template #loadedBlock>
+      <div class="nav-container">
+        <a mat-raised-button class="nav-item" routerLink="">
+          Create
+        </a>
+        <button mat-raised-button class="nav-item" color="warn">
+          Sign Out
+        </button>
+      </div>
+    </ng-template>
+  </nav>
+  <div class="user">
+    <div
+      class="user__wrapper"
+      *ngIf="(isAuth$ | async) && (userData$ | async) as user"
+    >
+      <img class="user__photo" [src]="user.avatarUrl" [alt]="user.fullName" />
+      <div class="user__info">
+        <span>{{ user.email }}</span>
+        <span>{{ user.fullName }}</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+alt="User photo" -->

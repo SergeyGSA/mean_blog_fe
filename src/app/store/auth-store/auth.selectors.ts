@@ -28,6 +28,11 @@ export const getTokens = createSelector(
   serverResponse => serverResponse && {'accessToken': serverResponse?.accessToken, 'refreshToken': serverResponse?.refreshToken}
 )
 
+export const getUserData = createSelector(
+  getServerResponse,
+  serverResponse => serverResponse && serverResponse.user
+)
+
 export const isAuth = createSelector(
   getTokens,
   tokens => !!tokens?.accessToken
