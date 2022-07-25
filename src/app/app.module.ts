@@ -6,11 +6,14 @@ import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { EffectsModule } from '@ngrx/effects'
 import { DEFAULT_ROUTER_FEATURENAME, routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store'
+import { JwtModule } from '@auth0/angular-jwt'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { environment } from '../environments/environment'
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor'
+import { AppStoreModule } from './store/app-store.module'
+import { AuthModule } from './auth/auth.module'
 
 @NgModule({
   declarations: [
@@ -26,7 +29,12 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor'
     }, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
+    AppStoreModule,
+    JwtModule.forRoot({
+      config: { tokenGetter: request => request as any}
+    }),
+    AuthModule
   ],
   providers: [
     { 

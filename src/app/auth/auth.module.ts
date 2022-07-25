@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule } from '@angular/forms'
-import { JwtModule } from '@auth0/angular-jwt'
 
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
@@ -20,6 +19,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor'
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     redirectTo: 'login'
   },
   {
@@ -47,7 +47,6 @@ const routes: Routes = [
     AuthStoreModule,
     SharedModule,
     SharedStoreModule,
-    JwtModule.forRoot({})
   ],
   providers: [
     AuthService,
