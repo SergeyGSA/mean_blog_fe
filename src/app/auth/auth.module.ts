@@ -13,8 +13,6 @@ import { AuthService } from './services/auth.service'
 import { AuthStoreModule } from '../store/auth-store/auth-store.module'
 import { SharedModule } from '../shared/shared.module'
 import { SharedStoreModule } from '../store/shared-store/shared-store.module'
-import { HTTP_INTERCEPTORS } from '@angular/common/http'
-import { AuthInterceptor } from './interceptors/auth.interceptor'
 
 const routes: Routes = [
   {
@@ -48,15 +46,7 @@ const routes: Routes = [
     SharedModule,
     SharedStoreModule,
   ],
-  providers: [
-    AuthService,
-    // TODO: Rework interceptor's provide
-    // { 
-    //   provide: HTTP_INTERCEPTORS, 
-    //   useClass: AuthInterceptor,  
-    //   multi: true
-    // }
-  ]
+  providers: [AuthService]
 })
 
 export class AuthModule { }

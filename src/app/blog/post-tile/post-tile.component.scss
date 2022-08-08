@@ -1,0 +1,24 @@
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-size: cover;
+  background-position: center;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__views {
+    display: flex;
+    align-items: center;
+  }
+
+  &__amount {
+    margin-left: 5px;
+  }
+}
+

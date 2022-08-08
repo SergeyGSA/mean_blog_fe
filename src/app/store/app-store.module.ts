@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 
 import { AuthStoreModule } from './auth-store/auth-store.module'
 import { SharedStoreModule } from './shared-store/shared-store.module'
+import { BlogStoreModule } from './blog-store/blog-store.module'
 
 @NgModule({
   declarations: [],
@@ -10,11 +11,8 @@ import { SharedStoreModule } from './shared-store/shared-store.module'
     CommonModule,
     AuthStoreModule,
     SharedStoreModule,
-  ],
-  // exports: [
-  //   AuthStoreModule,
-  //   SharedStoreModule,
-  // ]
+    BlogStoreModule
+  ]
 })
 
 export class AppStoreModule { }
