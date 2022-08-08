@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 
@@ -14,7 +14,7 @@ import { signUp } from 'src/app/store/shared-store/active-nav/active-nav.actions
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public registerForm!: FormGroup
+  public registerForm!: UntypedFormGroup
 
   public loading$: Observable<boolean> = this.store.pipe(select(getLoading))
   public loaded$: Observable<boolean> = this.store.pipe(select(getLoaded))
@@ -73,11 +73,11 @@ export class RegisterComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.registerForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      avatarUrl: new FormControl('', [Validators.required, Validators.pattern(this.regexpUrl)])
+    this.registerForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      fullName: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
+      password: new UntypedFormControl('', [Validators.required, Validators.minLength(5)]),
+      avatarUrl: new UntypedFormControl('', [Validators.required, Validators.pattern(this.regexpUrl)])
     }) 
   }
 }

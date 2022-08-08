@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { select, Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 
@@ -15,7 +15,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public loginForm!: FormGroup
+  public loginForm!: UntypedFormGroup
 
   public loaded$: Observable<boolean> = this.store.pipe(select(getLoaded))
   public loading$: Observable<boolean> = this.store.pipe(select(getLoading))
@@ -51,9 +51,9 @@ export class LoginComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required])
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required])
     })
   }
 }
