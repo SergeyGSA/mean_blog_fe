@@ -1,8 +1,8 @@
 export interface IRegisterData  {
-  email: string
-  fullName: string
-  password: string
-  avatarUrl: string
+  email: string | undefined
+  fullName: string | undefined
+  password: string | undefined
+  avatarUrl: string | undefined
 }
 
 export interface IUserData  {
@@ -24,8 +24,8 @@ export interface IAuthServerResponse {
 }
 
 export interface ILoginData {
-  email: string
-  password: string
+  email: string | undefined
+  password: string | undefined
 }
 
 export interface IAuthState {

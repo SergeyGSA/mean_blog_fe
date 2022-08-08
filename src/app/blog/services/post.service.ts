@@ -8,7 +8,7 @@ import { IPost } from '../post.interface';
 @Injectable()
 export class PostService {
 
-  constructor( private readonly http:  HttpClient ) { }
+  constructor( private readonly http: HttpClient ) { }
 
   public getAllPosts(): Observable<IPost[]> {
     return this.http.get<IPost[]>(`${environment.API_URL}/posts`)
