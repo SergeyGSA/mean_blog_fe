@@ -7,10 +7,10 @@ import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 
 import { BlogComponent } from './blog/blog.component'
-import { SharedModule } from '../shared/shared.module'
 import { SharedStoreModule } from '../store/shared-store/shared-store.module'
 import { PostTileComponent } from './post-tile/post-tile.component'
 import { PostService } from './services/post.service'
+import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component'
 
 const routes: Routes = [
   {
@@ -27,7 +27,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedModule,
+    NavMenuComponent,
     SharedStoreModule,
     MatButtonModule,
     MatCardModule,

@@ -11,8 +11,8 @@ import { RegisterComponent } from './register/register.component'
 import { LoginComponent } from './login/login.component'
 import { AuthService } from './services/auth.service'
 import { AuthStoreModule } from '../store/auth-store/auth-store.module'
-import { SharedModule } from '../shared/shared.module'
 import { SharedStoreModule } from '../store/shared-store/shared-store.module'
+import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component'
 
 const routes: Routes = [
   {
@@ -43,7 +43,7 @@ const routes: Routes = [
     MatInputModule,
     MatButtonModule,
     AuthStoreModule,
-    SharedModule,
+    NavMenuComponent,
     SharedStoreModule,
   ],
   providers: [AuthService]
