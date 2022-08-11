@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 
 @Component({
@@ -8,15 +9,15 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 })
 export class BlogComponent implements OnInit {
 
-  constructor( ) { 
+  constructor( private readonly http: HttpClient ) { 
   }
 
   ngOnInit(): void {
   }
 
   public test() {
-    // this.http.get('http://localhost:8080/posts').subscribe(
-    //   data => console.log(data)
-    // )
+    this.http.get('http://localhost:8080/posts').subscribe(
+      data => console.log(data)
+    )
   }
 }

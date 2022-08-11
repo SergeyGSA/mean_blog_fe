@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Store } from '@ngrx/store'
 import { tap, map, Observable } from 'rxjs'
 import { getUserData } from 'src/app/store/auth-store/auth.selectors'
+import { PostService } from '../services/post.service'
 
 interface IUser {
   email: string
@@ -22,7 +23,5 @@ export class PostTileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
-
 }

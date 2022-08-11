@@ -4,7 +4,7 @@ import { of } from 'rxjs'
 import { map, catchError, switchMap, delay } from 'rxjs/operators'
 import { IAuthServerResponse } from 'src/app/auth/auth.interface'
 import { AuthService } from '../../auth/services/auth.service'
-import { login, loginFailure, loginSuccess, register, registerFailure, registerSuccess } from './auth.actions'
+import { login, loginFailure, loginSuccess, refresh, refreshSuccess, register, registerFailure, registerSuccess } from './auth.actions'
 
 @Injectable()
 export class AuthEffects {
@@ -34,10 +34,9 @@ export class AuthEffects {
   ))
 
   // refresh$ = createEffect(() => this.actions$.pipe(
-  //   ofType(loginSuccess || registerSuccess),
-  //   delay(5000),
+  //   ofType(refresh),
   //   switchMap(() => this.authService.refresh().pipe(
-  //     map((loginSuccessData: IAuthServerResponse) => loginSuccess(loginSuccessData))
+  //     map((refreshSuccessData: IAuthServerResponse) => refreshSuccess(refreshSuccessData))
   //   ))
   // ))
 

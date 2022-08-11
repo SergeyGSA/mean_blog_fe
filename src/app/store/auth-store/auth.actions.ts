@@ -8,3 +8,6 @@ export const registerFailure = createAction('[Auth] register failure', props<{se
 export const login = createAction('[Auth] login', props<ILoginData>())
 export const loginSuccess = createAction('[Auth] login success', props<IAuthServerResponse>())
 export const loginFailure = createAction('[Auth] login failure', props<{serverError: string}>())
+
+export const refresh = createAction('[Auth] refresh')
+export const refreshSuccess = createAction('[Auth] refresh success', props<IAuthServerResponse>())

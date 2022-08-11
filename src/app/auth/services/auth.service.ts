@@ -15,7 +15,8 @@ export class AuthService {
 
   constructor( 
     private readonly http: HttpClient,
-    private readonly jwtHelperService: JwtHelperService ) { }
+    private readonly jwtHelperService: JwtHelperService 
+  ) { }
 
   public register(newUser: IRegisterData): Observable<IAuthServerResponse> {
     return this.http.post<IAuthServerResponse>(`${environment.API_URL}/auth/register`, newUser, httpOptions)
@@ -37,13 +38,7 @@ export class AuthService {
       )
   }
 
-  // public refresh(): Observable<IAuthServerResponse> {
-  //   return this.http.get<IAuthServerResponse>(`${environment.API_URL}/auth/refresh`)
-  //     .pipe(
-  //       map(res => ({
-  //         ...res,
-  //         ...this.jwtHelperService.decodeToken(res.accessToken)
-  //       }))
-  //     )
-  // }
+  public refresh(): Observable<IAuthServerResponse> {
+    return this.http.get<IAuthServerResponse>(`${environment.API_URL}/auth/refresh`, {withCredentials: true})
+  }
 }
