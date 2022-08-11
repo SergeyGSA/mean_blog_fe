@@ -11,6 +11,7 @@ import { SharedStoreModule } from '../store/shared-store/shared-store.module'
 import { PostTileComponent } from './post-tile/post-tile.component'
 import { PostService } from './services/post.service'
 import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component'
+import { FooterComponent } from '../shared/footer/footer.component'
 
 const routes: Routes = [
   {
@@ -27,11 +28,14 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    NavMenuComponent,
     SharedStoreModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
+    // ===== Standalone =======
+    NavMenuComponent,
+    FooterComponent
+    // ===== /Standalone =======
   ],
   providers: [PostService]
 })

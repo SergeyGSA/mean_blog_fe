@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service'
 import { AuthStoreModule } from '../store/auth-store/auth-store.module'
 import { SharedStoreModule } from '../store/shared-store/shared-store.module'
 import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component'
+import { FooterComponent } from '../shared/footer/footer.component'
 
 const routes: Routes = [
   {
@@ -43,8 +44,11 @@ const routes: Routes = [
     MatInputModule,
     MatButtonModule,
     AuthStoreModule,
-    NavMenuComponent,
     SharedStoreModule,
+    // ===== Standalone =======
+    NavMenuComponent,
+    FooterComponent
+    // ===== /Standalone =======
   ],
   providers: [AuthService]
 })
