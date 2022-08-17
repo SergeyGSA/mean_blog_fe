@@ -5,7 +5,7 @@ import { register, registerFailure, registerSuccess, login, loginSuccess, loginF
 const initialState: IAuthState = {
   loaded: false,
   loading: false,
-  serverError: ''
+  serverError: undefined
 }
 
 export const authReducer = createReducer(
@@ -22,7 +22,7 @@ export const authReducer = createReducer(
     serverResponse,
     loaded: true,
     loading: false,
-    serverError: ''
+    serverError: undefined
   })),
 
   on(registerFailure, (state, {serverError}) => ({
@@ -36,7 +36,7 @@ export const authReducer = createReducer(
   on(login, state => ({
     ...state,
     loading: true,
-    serverError: ''
+    serverError: undefined
   })),
 
   on(loginSuccess, (state, {type, ...serverResponse} : {type: string} & IAuthServerResponse) => ({
@@ -44,7 +44,7 @@ export const authReducer = createReducer(
     serverResponse,
     loaded: true,
     loading: false,
-    serverError: ''
+    serverError: undefined
   })),
 
   on(loginFailure, (state, {serverError}) => ({

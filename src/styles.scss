@@ -2,3 +2,10 @@
 *, html, body { box-sizing: border-box;}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.error-snackbar {
+  background-color: #F44336 !important;
+  display: flex !important;
+  justify-content: center !important;
+  color: #fff !important;
+}

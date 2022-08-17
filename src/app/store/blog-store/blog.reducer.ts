@@ -5,7 +5,8 @@ import { getPost, getPostFailure, getPostSuccess } from "./blog.actions"
 const initialState: IBlogState = {
   loaded: false,
   loading: false,
-  serverError: ''
+  serverError: '',
+  serverResponse: null
 }
 
 export const blogReducer = createReducer(

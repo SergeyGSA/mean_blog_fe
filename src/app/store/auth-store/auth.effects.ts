@@ -18,7 +18,7 @@ export class AuthEffects {
       avatarUrl: action.avatarUrl
     }).pipe(
       map((registerSuccessData: IAuthServerResponse) => registerSuccess(registerSuccessData)),
-      catchError(error => of(registerFailure({serverError: error.message})))
+      catchError(err => of(registerFailure({serverError: err.error})))
     ))
   ))
 
@@ -29,7 +29,7 @@ export class AuthEffects {
       password: action.password,
     }).pipe(
       map((loginSuccessData: IAuthServerResponse) => loginSuccess(loginSuccessData)),
-      catchError(error => of(loginFailure({serverError: error.message})))
+      catchError(err => of(loginFailure({serverError: err.error})))
     ))
   ))
 

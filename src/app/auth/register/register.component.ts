@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { select, Store } from '@ngrx/store'
-import { Observable } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 
-import { IRegisterData } from '../auth.interface'
+import { IAuthServerError, IRegisterData } from '../auth.interface'
 import { register } from 'src/app/store/auth-store/auth.actions'
 import { getLoaded, getLoading, getServerError } from 'src/app/store/auth-store/auth.selectors'
 import { signUp } from 'src/app/store/shared-store/active-nav/active-nav.actions'
+import { NotificationService } from 'src/app/shared/services/notification.service'
 
 interface IRegisterForm {
   email: FormControl<string>
@@ -21,12 +22,13 @@ interface IRegisterForm {
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   protected registerForm!: FormGroup<IRegisterForm>
+  private errorSub?: Subscription
 
   protected loading$: Observable<boolean> = this.store.pipe(select(getLoading))
   protected loaded$: Observable<boolean> = this.store.pipe(select(getLoaded))
-  protected serverError$: Observable<string> = this.store.pipe(select(getServerError))
+  protected serverError$: Observable<IAuthServerError | undefined> = this.store.pipe(select(getServerError))
 
   private regexpUrl = /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi
 
@@ -62,11 +64,26 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls['avatarUrl'].hasError('pattern') ? 'Provide a valid url address' : '' 
   }
 
-  constructor( private store: Store ) {}
+  constructor( 
+    private readonly store: Store,
+    private readonly notificationService: NotificationService,
+  ) {}
 
   ngOnInit(): void {
     this.initForm()
     this.store.dispatch(signUp())
+
+    this.errorSub = this.serverError$.subscribe(
+      registerError => {
+        if (registerError) {
+          this.notificationService.errorHandler(registerError)
+        }
+      }
+    )
+  }
+
+  ngOnDestroy(): void {
+    if (this.errorSub) this.errorSub.unsubscribe()
   }
 
   protected onSubmit(): void {

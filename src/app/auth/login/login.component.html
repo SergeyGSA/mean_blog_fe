@@ -38,7 +38,10 @@
       Sign In
     </button>
 
-    <mat-error>{{ serverError$ | async }}</mat-error>
+    <mat-progress-bar
+      *ngIf="loading$ | async"
+      mode="indeterminate"
+    ></mat-progress-bar>
   </form>
 </div>
 

@@ -7,6 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { EffectsModule } from '@ngrx/effects'
 import { DEFAULT_ROUTER_FEATURENAME, routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store'
 import { JwtModule } from '@auth0/angular-jwt'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -34,7 +35,8 @@ import { AuthModule } from './auth/auth.module'
     JwtModule.forRoot({
       config: { tokenGetter: request => request as any}
     }),
-    AuthModule
+    AuthModule,
+    MatSnackBarModule
   ],
   providers: [
     { 

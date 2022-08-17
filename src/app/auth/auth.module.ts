@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
 
 import { RegisterComponent } from './register/register.component'
 import { LoginComponent } from './login/login.component'
@@ -47,8 +48,9 @@ const routes: Routes = [
     SharedStoreModule,
     // ===== Standalone =======
     NavMenuComponent,
-    FooterComponent
+    FooterComponent,
     // ===== /Standalone =======
+    MatProgressBarModule,
   ],
   providers: [AuthService]
 })

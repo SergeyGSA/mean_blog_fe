@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { select, Store } from '@ngrx/store'
-import { Observable } from 'rxjs'
+import { map, Observable, Subscription } from 'rxjs'
 import { Router } from '@angular/router'
 
 import { signIn } from 'src/app/store/shared-store/active-nav/active-nav.actions'
 import { login } from 'src/app/store/auth-store/auth.actions'
 import { getLoaded, getLoading, getServerError } from 'src/app/store/auth-store/auth.selectors'
-import { ILoginData } from '../auth.interface'
+import { IAuthServerError, ILoginData } from '../auth.interface'
+import { NotificationService } from 'src/app/shared/services/notification.service'
 
 interface ILoginForm {
   email: FormControl<string>
@@ -20,12 +21,13 @@ interface ILoginForm {
   styleUrls: ['./login.component.scss'], 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   protected loginForm!: FormGroup<ILoginForm>
+  private errorSub?: Subscription
 
   protected loaded$: Observable<boolean> = this.store.pipe(select(getLoaded))
   protected loading$: Observable<boolean> = this.store.pipe(select(getLoading))
-  protected serverError$: Observable<string> = this.store.pipe(select(getServerError))
+  protected serverError$: Observable<IAuthServerError | undefined> = this.store.pipe(select(getServerError))
 
   protected get emailErrors(): string {
     if (this.loginForm.controls['email'].hasError('required')) {
@@ -40,13 +42,26 @@ export class LoginComponent implements OnInit {
   }
 
   constructor( 
-    private readonly store: Store, 
-    private readonly router: Router 
+    private readonly store: Store,
+    private readonly notificationService: NotificationService,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
     this.initForm()
     this.store.dispatch(signIn())
+
+    this.errorSub = this.serverError$.subscribe(
+      loginError => {
+        if (loginError) {
+          this.notificationService.errorHandler(loginError)
+        }
+      }
+    )
+  }
+
+  ngOnDestroy(): void {
+    if (this.errorSub) this.errorSub.unsubscribe()
   }
 
   protected onSubmit(): void {
@@ -56,7 +71,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.store.dispatch(login(loginData))
-    this.router.navigate(['/'])
+    // this.router.navigate(['/'])
   }
 
   private initForm(): void {

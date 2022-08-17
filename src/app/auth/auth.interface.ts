@@ -31,6 +31,11 @@ export interface ILoginData {
 export interface IAuthState {
   loading: boolean
   loaded: boolean
-  serverError: string
+  serverError?: IAuthServerError
   serverResponse?: IAuthServerResponse
+}
+
+export interface IAuthServerError {
+  message: string
+  errors: Array<unknown>
 }
