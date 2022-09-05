@@ -1,28 +1,28 @@
-import { createReducer, on } from "@ngrx/store"
-import { signIn, signUp } from './active-nav.actions'
+import {createReducer, on} from '@ngrx/store'
+import {signIn, signUp} from './active-nav.actions'
 
 export interface INavLinks {
-  signIn: string,
+  signIn: string
   signUp: string
 }
 
 const initialState: INavLinks = {
   signIn: '',
-  signUp: ''
+  signUp: '',
 }
 
 export const activeNavReducer = createReducer(
   initialState,
 
-  on(signIn, state => ({
+  on(signIn, (state) => ({
     ...state,
     signIn: 'primary',
-    signUp: ''
+    signUp: '',
   })),
 
-  on(signUp, state => ({
+  on(signUp, (state) => ({
     ...state,
     signIn: '',
-    signUp: 'primary'
+    signUp: 'primary',
   }))
 )

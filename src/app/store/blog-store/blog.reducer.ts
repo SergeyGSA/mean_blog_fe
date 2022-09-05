@@ -1,22 +1,22 @@
-import { createReducer, on } from "@ngrx/store"
-import { IBlogState } from "src/app/blog/post.interface"
-import { getPost, getPostFailure, getPostSuccess } from "./blog.actions"
+import {createReducer, on} from '@ngrx/store'
+import {IBlogState} from 'src/app/blog/post.interface'
+import {getPost, getPostFailure, getPostSuccess} from './blog.actions'
 
 const initialState: IBlogState = {
   loaded: false,
   loading: false,
   serverError: '',
-  serverResponse: null
+  serverResponse: null,
 }
 
 export const blogReducer = createReducer(
   initialState,
 
-  on(getPost, state => ({
+  on(getPost, (state) => ({
     ...state,
     loaded: false,
     loading: true,
-    serverError: ''
+    serverError: '',
   })),
 
   on(getPostSuccess, (state, serverResponse) => ({
@@ -24,13 +24,13 @@ export const blogReducer = createReducer(
     serverResponse,
     loaded: true,
     loading: false,
-    serverError: ''
+    serverError: '',
   })),
 
   on(getPostFailure, (state, {serverError}) => ({
     ...state,
     loaded: false,
     loading: false,
-    serverError
+    serverError,
   }))
 )

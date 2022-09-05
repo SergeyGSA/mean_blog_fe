@@ -1,9 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core'
-import { Store } from '@ngrx/store'
-import { tap, map, Observable } from 'rxjs'
-import { getUserData } from 'src/app/store/auth-store/auth.selectors'
-import { PostService } from '../services/post.service'
-
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core'
+import {Store} from '@ngrx/store'
 interface IUser {
   email: string
   id: string
@@ -15,13 +11,10 @@ interface IUser {
   selector: 'app-post-tile',
   templateUrl: './post-tile.component.html',
   styleUrls: ['./post-tile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostTileComponent implements OnInit {
+  constructor(private store: Store) {}
 
-  constructor( private readonly store: Store ) { 
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

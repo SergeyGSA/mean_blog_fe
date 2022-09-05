@@ -32,7 +32,7 @@ interface IRegisterForm {
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent extends UnSub implements OnInit, OnDestroy {
+export class RegisterComponent extends UnSub implements OnInit {
   protected registerForm!: FormGroup<IRegisterForm>
 
   protected loading$: Observable<boolean> = this.store.pipe(select(getLoading))
@@ -130,7 +130,7 @@ export class RegisterComponent extends UnSub implements OnInit, OnDestroy {
       }),
       avatarUrl: new FormControl('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.pattern(this.regexpUrl)],
+        validators: [Validators.pattern(this.regexpUrl)],
       }),
     })
   }

@@ -1,15 +1,15 @@
-export interface IRegisterData  {
+export interface IRegisterData {
   email: string | undefined
   fullName: string | undefined
   password: string | undefined
-  avatarUrl: string | undefined
+  avatarUrl?: string | undefined
 }
 
-export interface IUserData  {
+export interface IUserData {
   email: string
   id: string
   fullName: string
-  avatarUrl: string
+  avatarUrl?: string
 }
 
 export interface IAuthServerResponse {

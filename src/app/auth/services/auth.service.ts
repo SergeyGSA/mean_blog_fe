@@ -46,11 +46,4 @@ export class AuthService {
         }))
       )
   }
-
-  // public refresh(): Observable<IAuthServerResponse> {
-  //   return this.http.get<IAuthServerResponse>(
-  //     `${environment.API_URL}/auth/refresh`,
-  //     {withCredentials: true}
-  //   )
-  // }
 }

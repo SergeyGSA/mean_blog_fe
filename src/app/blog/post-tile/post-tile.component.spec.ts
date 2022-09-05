@@ -1,25 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing'
 
-import { PostTileComponent } from './post-tile.component';
+import {PostTileComponent} from './post-tile.component'
 
 describe('ArticleTileComponent', () => {
-  let component: PostTileComponent;
-  let fixture: ComponentFixture<PostTileComponent>;
+  let component: PostTileComponent
+  let fixture: ComponentFixture<PostTileComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostTileComponent ]
-    })
-    .compileComponents();
-  });
+      declarations: [PostTileComponent],
+    }).compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostTileComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PostTileComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})
