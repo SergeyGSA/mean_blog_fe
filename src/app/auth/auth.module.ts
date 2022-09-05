@@ -1,42 +1,39 @@
-import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
-import { CommonModule } from '@angular/common'
-import { ReactiveFormsModule } from '@angular/forms'
+import {NgModule} from '@angular/core'
+import {RouterModule, Routes} from '@angular/router'
+import {CommonModule} from '@angular/common'
+import {ReactiveFormsModule} from '@angular/forms'
 
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
-import { MatButtonModule } from '@angular/material/button'
-import { MatProgressBarModule } from '@angular/material/progress-bar'
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatInputModule} from '@angular/material/input'
+import {MatButtonModule} from '@angular/material/button'
+import {MatProgressBarModule} from '@angular/material/progress-bar'
 
-import { RegisterComponent } from './register/register.component'
-import { LoginComponent } from './login/login.component'
-import { AuthService } from './services/auth.service'
-import { AuthStoreModule } from '../store/auth-store/auth-store.module'
-import { SharedStoreModule } from '../store/shared-store/shared-store.module'
-import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component'
-import { FooterComponent } from '../shared/footer/footer.component'
+import {RegisterComponent} from './register/register.component'
+import {LoginComponent} from './login/login.component'
+import {AuthService} from './services/auth.service'
+import {AuthStoreModule} from '../store/auth-store/auth-store.module'
+import {SharedStoreModule} from '../store/shared-store/shared-store.module'
+import {NavMenuComponent} from '../shared/nav-menu/nav-menu.component'
+import {FooterComponent} from '../shared/footer/footer.component'
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login'
+    redirectTo: 'login',
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
-  }
+    component: LoginComponent,
+  },
 ]
 
 @NgModule({
-  declarations: [
-    RegisterComponent,
-    LoginComponent
-  ],
+  declarations: [RegisterComponent, LoginComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -52,7 +49,6 @@ const routes: Routes = [
     // ===== /Standalone =======
     MatProgressBarModule,
   ],
-  providers: [AuthService]
+  providers: [AuthService],
 })
-
-export class AuthModule { }
+export class AuthModule {}

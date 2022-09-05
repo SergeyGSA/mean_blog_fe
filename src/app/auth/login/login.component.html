@@ -38,10 +38,12 @@
       Sign In
     </button>
 
-    <mat-progress-bar
-      *ngIf="loading$ | async"
-      mode="indeterminate"
-    ></mat-progress-bar>
+    <div class="progress-bar">
+      <mat-progress-bar
+        *ngIf="loading$ | async"
+        mode="indeterminate"
+      ></mat-progress-bar>
+    </div>
   </form>
 </div>
 

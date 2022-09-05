@@ -64,14 +64,12 @@
       Sign Up
     </button>
 
-    <!-- <mat-error *ngIf="serverError$ | async">
-      {{ serverError$ | async }}
-    </mat-error> -->
-
-    <mat-progress-bar
-      *ngIf="loading$ | async"
-      mode="indeterminate"
-    ></mat-progress-bar>
+    <div class="progress-bar">
+      <mat-progress-bar
+        *ngIf="loading$ | async"
+        mode="indeterminate"
+      ></mat-progress-bar>
+    </div>
   </form>
 </div>
 
