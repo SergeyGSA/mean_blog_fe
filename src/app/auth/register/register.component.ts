@@ -94,6 +94,14 @@ export class RegisterComponent extends UnSub implements OnInit {
     this.initForm()
     this.store.dispatch(signUp())
 
+    this.loaded$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: boolean) => {
+        if (data) {
+          this.notificationService.successHandler('Welcome on board!')
+        }
+      })
+
     this.serverError$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((registerError) => {

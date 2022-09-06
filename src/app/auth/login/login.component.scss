@@ -1,32 +1,34 @@
+@import 'src/app/scss/_variables';
+
 .wrapper {
   width: 100%;
-  height: calc(100% - 126px);
+  height: calc(100% - $base * 31.5);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .form {
-  width: 425px;
-  height: 500px;
-  border-radius: 10px;
+  width: $base * 106.25;
+  height: $base * 125;
+  border-radius: $base * 2.5;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  padding: 24px 70px 20px 70px;
+  padding: $base * 6 $base * 17.5 $base * 5 $base * 17.5;
 
   &-heading {
     text-align: center;
   }
 
   &-btn {
-    margin-top: 20px;
+    margin-top: $base * 5;
   }
 }
 
 .progress-bar {
-  height: 4px;
+  height: $base;
   width: 100%;
 }

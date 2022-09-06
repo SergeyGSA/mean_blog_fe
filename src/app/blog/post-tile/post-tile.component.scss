@@ -1,5 +1,7 @@
+@import 'src/app/scss/_variables';
+
 .post-card {
-  max-width: 400px;
+  max-width: $base * 100;
 }
 
 .post-header-image {
@@ -18,6 +20,6 @@
   }
 
   &__amount {
-    margin-left: 5px;
+    margin-left: $base;
   }
 }

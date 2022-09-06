@@ -9,7 +9,8 @@ export class NotificationService {
   constructor(private _snackBar: MatSnackBar) {}
 
   public errorHandler(error: IAuthServerError): void {
-    this._snackBar.open(error.message, undefined, {
+    const err = error.errors.length ? error.errors[0].msg : error.message
+    this._snackBar.open(err, undefined, {
       duration: 5000,
       panelClass: 'error-snackbar',
     })

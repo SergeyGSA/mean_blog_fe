@@ -37,5 +37,12 @@ export interface IAuthState {
 
 export interface IAuthServerError {
   message: string
-  errors: Array<unknown>
+  errors: Array<IAuthErrorsArray>
+}
+
+export interface IAuthErrorsArray {
+  location: string
+  msg: string
+  param: string
+  value: string
 }
