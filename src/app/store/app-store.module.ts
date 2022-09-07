@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 
-import {AuthStoreModule} from './auth-store/auth-store.module'
-import {SharedStoreModule} from './shared-store/shared-store.module'
-import {BlogStoreModule} from './blog-store/blog-store.module'
+import {AuthStoreModule} from 'src/app/store/auth-store/auth-store.module'
+import {SharedStoreModule} from 'src/app/store/shared-store/shared-store.module'
+import {BlogStoreModule} from 'src/app/store/blog-store/blog-store.module'
 
 @NgModule({
   declarations: [],

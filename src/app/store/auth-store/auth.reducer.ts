@@ -7,7 +7,7 @@ import {
   login,
   loginSuccess,
   loginFailure,
-} from './auth.actions'
+} from 'src/app/store/auth-store/auth.actions'
 
 const initialState: IAuthState = {
   loaded: false,

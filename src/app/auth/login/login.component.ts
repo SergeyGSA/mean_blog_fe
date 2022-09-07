@@ -11,7 +11,7 @@ import {
   getLoading,
   getServerError,
 } from 'src/app/store/auth-store/auth.selectors'
-import {IAuthServerError, ILoginData} from '../auth.interface'
+import {IAuthServerError, ILoginData} from 'src/app/auth/auth.interface'
 import {NotificationService} from 'src/app/shared/services/notification.service'
 import {UnSub} from 'src/app/shared/UnSub.class'
 

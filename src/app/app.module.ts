@@ -13,12 +13,12 @@ import {
 import {JwtModule} from '@auth0/angular-jwt'
 import {MatSnackBarModule} from '@angular/material/snack-bar'
 
-import {AppRoutingModule} from './app-routing.module'
-import {AppComponent} from './app.component'
-import {environment} from '../environments/environment'
-import {AuthInterceptor} from './auth/interceptors/auth.interceptor'
-import {AppStoreModule} from './store/app-store.module'
-import {AuthModule} from './auth/auth.module'
+import {AppRoutingModule} from 'src/app/app-routing.module'
+import {AppComponent} from 'src/app/app.component'
+import {environment} from 'src/environments/environment'
+import {AuthInterceptor} from 'src/app/auth/interceptors/auth.interceptor'
+import {AppStoreModule} from 'src/app/store/app-store.module'
+import {AuthModule} from 'src/app/auth/auth.module'
 
 @NgModule({
   declarations: [AppComponent],

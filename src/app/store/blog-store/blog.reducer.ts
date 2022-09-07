@@ -1,6 +1,10 @@
 import {createReducer, on} from '@ngrx/store'
 import {IBlogState} from 'src/app/blog/post.interface'
-import {getPost, getPostFailure, getPostSuccess} from './blog.actions'
+import {
+  getPost,
+  getPostFailure,
+  getPostSuccess,
+} from 'src/app/store/blog-store/blog.actions'
 
 const initialState: IBlogState = {
   loaded: false,

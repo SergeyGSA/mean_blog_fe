@@ -1,4 +1,4 @@
-import {IUserData} from '../auth/auth.interface'
+import {IUserData} from 'src/app/auth/auth.interface'
 
 export interface IPost {
   title: string

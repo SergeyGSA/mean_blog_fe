@@ -1,14 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core'
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {select, Store} from '@ngrx/store'
 import {Observable, takeUntil} from 'rxjs'
 
-import {IAuthServerError, IRegisterData} from '../auth.interface'
+import {IAuthServerError, IRegisterData} from 'src/app/auth/auth.interface'
 import {register} from 'src/app/store/auth-store/auth.actions'
 import {
   getLoaded,

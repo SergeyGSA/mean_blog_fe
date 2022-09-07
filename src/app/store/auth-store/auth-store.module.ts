@@ -3,8 +3,8 @@ import {CommonModule} from '@angular/common'
 import {EffectsModule} from '@ngrx/effects'
 import {StoreModule} from '@ngrx/store'
 
-import {authReducer} from './auth.reducer'
-import {AuthEffects} from './auth.effects'
+import {authReducer} from 'src/app/store/auth-store/auth.reducer'
+import {AuthEffects} from 'src/app/store/auth-store/auth.effects'
 
 @NgModule({
   declarations: [],

@@ -4,7 +4,11 @@ import {map, Observable} from 'rxjs'
 import {JwtHelperService} from '@auth0/angular-jwt'
 
 import {environment} from 'src/environments/environment'
-import {IAuthServerResponse, ILoginData, IRegisterData} from '../auth.interface'
+import {
+  IAuthServerResponse,
+  ILoginData,
+  IRegisterData,
+} from 'src/app/auth/auth.interface'
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'}),

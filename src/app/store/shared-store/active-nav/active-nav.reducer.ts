@@ -1,5 +1,8 @@
 import {createReducer, on} from '@ngrx/store'
-import {signIn, signUp} from './active-nav.actions'
+import {
+  signIn,
+  signUp,
+} from 'src/app/store/shared-store/active-nav/active-nav.actions'
 
 export interface INavLinks {
   signIn: string

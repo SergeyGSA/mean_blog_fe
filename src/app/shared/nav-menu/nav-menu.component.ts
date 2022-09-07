@@ -8,7 +8,7 @@ import {MatButtonModule} from '@angular/material/button'
 import {
   getSignIn,
   getSignUp,
-} from '../../store/shared-store/active-nav/active-nav.selectors'
+} from 'src/app/store/shared-store/active-nav/active-nav.selectors'
 import {getUserData, isAuth} from 'src/app/store/auth-store/auth.selectors'
 import {IUserData} from 'src/app/auth/auth.interface'
 
@@ -28,7 +28,7 @@ export class NavMenuComponent implements OnInit {
     select(getUserData)
   )
 
-  constructor(private readonly store: Store) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {}
 }

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
 import {of} from 'rxjs'
-import {map, catchError, switchMap, delay} from 'rxjs/operators'
+import {map, catchError, switchMap} from 'rxjs/operators'
 import {IAuthServerResponse} from 'src/app/auth/auth.interface'
-import {AuthService} from '../../auth/services/auth.service'
+import {AuthService} from 'src/app/auth/services/auth.service'
 import {
   login,
   loginFailure,
@@ -11,7 +11,7 @@ import {
   register,
   registerFailure,
   registerSuccess,
-} from './auth.actions'
+} from 'src/app/store/auth-store/auth.actions'
 
 @Injectable()
 export class AuthEffects {
@@ -55,8 +55,5 @@ export class AuthEffects {
     )
   )
 
-  constructor(
-    private readonly actions$: Actions,
-    private readonly authService: AuthService
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 }

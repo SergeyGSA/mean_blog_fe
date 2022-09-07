@@ -4,7 +4,7 @@ import {
   IAuthServerResponse,
   ILoginData,
   IRegisterData,
-} from '../../auth/auth.interface'
+} from 'src/app/auth/auth.interface'
 
 export const register = createAction('[Auth] register', props<IRegisterData>())
 export const registerSuccess = createAction(

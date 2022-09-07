@@ -7,11 +7,11 @@ import {MatCardModule} from '@angular/material/card'
 import {MatIconModule} from '@angular/material/icon'
 
 import {BlogComponent} from './blog/blog.component'
-import {SharedStoreModule} from '../store/shared-store/shared-store.module'
-import {PostTileComponent} from './post-tile/post-tile.component'
-import {PostService} from './services/post.service'
-import {NavMenuComponent} from '../shared/nav-menu/nav-menu.component'
-import {FooterComponent} from '../shared/footer/footer.component'
+import {SharedStoreModule} from 'src/app/store/shared-store/shared-store.module'
+import {PostTileComponent} from 'src/app/blog/post-tile/post-tile.component'
+import {PostService} from 'src/app/blog/services/post.service'
+import {NavMenuComponent} from 'src/app/shared/nav-menu/nav-menu.component'
+import {FooterComponent} from 'src/app/shared/footer/footer.component'
 
 const routes: Routes = [
   {
