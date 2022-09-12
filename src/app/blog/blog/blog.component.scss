@@ -1,2 +1,21 @@
+@import 'src/app/scss/_variables';
 
+.recent-posts,
+.most-viewed-posts {
+  padding: $base * 10;
 
+  &__heading {
+    text-transform: uppercase;
+  }
+
+  &__wrapper {
+    margin-top: $base * 10;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+
+.most-viewed-posts {
+  background-color: rgb(234, 232, 232);
+}

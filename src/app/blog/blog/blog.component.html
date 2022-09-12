@@ -1,9 +1,30 @@
 <app-nav-menu></app-nav-menu>
 
-<button [ngStyle]="{display: 'none'}" (click)="test()">Click</button>
+<div class="recent-posts">
+  <h2 class="recent-posts__heading">Recent Posts</h2>
 
-<div class="test">
-  <app-post-tile></app-post-tile>
+  <div class="recent-posts__wrapper">
+    <ng-container
+      *ngFor="let recentPost of recentPosts$ | async; trackBy: trackPosts"
+    >
+      <app-post-tile [post]="recentPost"></app-post-tile>
+    </ng-container>
+  </div>
+</div>
+
+<div class="most-viewed-posts">
+  <h2 class="most-viewed-posts__heading">Most Viewed Posts</h2>
+
+  <div class="most-viewed-posts__wrapper">
+    <ng-container
+      *ngFor="
+        let mostViewedPost of mostViewedPosts$ | async;
+        trackBy: trackPosts
+      "
+    >
+      <app-post-tile [post]="mostViewedPost"></app-post-tile>
+    </ng-container>
+  </div>
 </div>
 
 <app-footer></app-footer>

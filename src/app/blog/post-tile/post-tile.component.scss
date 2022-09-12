@@ -2,11 +2,30 @@
 
 .post-card {
   max-width: $base * 100;
-}
 
-.post-header-image {
-  background-size: cover;
-  background-position: center;
+  &__header {
+    &-image {
+      background-size: cover;
+      background-position: center;
+    }
+    &-username {
+      margin-right: 20px;
+    }
+  }
+
+  &__text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  &__actions {
+    button {
+      background-color: $primary-color;
+      color: $secondary-color;
+    }
+  }
 }
 
 .footer {
@@ -17,9 +36,30 @@
   &__views {
     display: flex;
     align-items: center;
+    margin-left: $base * 2;
+
+    mat-icon {
+      color: $primary-color;
+    }
   }
 
   &__amount {
     margin-left: $base;
+    font-weight: bold;
+  }
+
+  &__tags {
+    margin-bottom: $base * 2;
+    margin-right: $base;
+
+    &-item {
+      margin-right: $base;
+      padding: $base $base * 2;
+      background-color: $secondary-color;
+      color: $primary-color;
+      border: 2px solid $primary-color;
+      border-radius: $base;
+      font-weight: 700;
+    }
   }
 }

@@ -1,6 +1,7 @@
 import {IUserData} from 'src/app/auth/auth.interface'
 
 export interface IPost {
+  id: string
   title: string
   imageUrl: string
   text: string

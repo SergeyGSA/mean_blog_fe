@@ -1,11 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core'
-import {Store} from '@ngrx/store'
-interface IUser {
-  email: string
-  id: string
-  fullName: string
-  avatarUrl: string
-}
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core'
+import {IPost} from 'src/app/blog/post.interface'
 
 @Component({
   selector: 'app-post-tile',
@@ -14,7 +8,16 @@ interface IUser {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostTileComponent implements OnInit {
-  constructor(private store: Store) {}
+  @Input()
+  post!: IPost
+
+  protected get backgroundImageForPost() {
+    return {'background-image': 'url(' + this.post.user.avatarUrl + ')'}
+  }
 
   ngOnInit(): void {}
+
+  protected trackTag(index: number, item: string): string {
+    return item
+  }
 }

@@ -1,48 +1,50 @@
 <mat-card class="post-card">
   <mat-card-header>
-    <div mat-card-avatar class="post-header-image">
-      <!-- [ngStyle]="{ 'background-image': 'url(' + post.user.avatarUrl + ')' }" -->
-      <!-- USER PHOTO -->
-      <!-- {{ post.user.imageUrl }} -->
-    </div>
+    <div
+      mat-card-avatar
+      class="post-card__header-image"
+      [ngStyle]="backgroundImageForPost"
+    ></div>
     <mat-card-title>
-      <!-- ARTICLE NAME -->
-      <!-- {{ post.title }} -->
+      {{ post.title }}
     </mat-card-title>
     <mat-card-subtitle>
-      <!-- USER NAME -->
-      <span [ngStyle]="{'margin-right': '20px'}">
-        <!-- {{ post.user.fullName }} -->
+      <span class="post-card__header-username">
+        {{ post.user.fullName }}
       </span>
-      <!-- CREATED DATE -->
-      <!-- <span>{{ post.createdAt | date: 'MMM d, y, HH:mm' }}</span> -->
+
+      <b>{{ post.createdAt | date: 'MMM d, y, HH:mm' }}</b>
     </mat-card-subtitle>
   </mat-card-header>
-  <!-- ARTICLE'S PHOTO -->
-  <!-- <img mat-card-image [src]="post.imageUrl" [alt]="post.title" /> -->
+
+  <img mat-card-image [src]="post.imageUrl" [alt]="post.title" />
+
   <mat-card-content>
-    <p>
-      <!-- ARTICLE'S TEXT -->
-      <!-- {{ post.text }} -->
+    <p class="post-card__text">
+      {{ post.text }}
     </p>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>
-      <mat-icon>edit</mat-icon>
-      Edit
-    </button>
-    <button mat-button>
-      <mat-icon>delete</mat-icon>
-      Delete
-    </button>
+  <mat-card-actions class="post-card__actions">
+    <ng-container *ngIf="false">
+      <button mat-button>
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+      <button mat-button>
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+    </ng-container>
   </mat-card-actions>
   <mat-card-footer class="footer">
     <div class="footer__views">
       <mat-icon>visibility</mat-icon>
-      <!-- <span class="footer__amount">{{ post.viewsCount }}</span> -->
+      <span class="footer__amount">{{ post.viewsCount }}</span>
     </div>
     <div class="footer__tags">
-      <!-- <span>{{ tag }}</span> -->
+      <ng-container *ngFor="let tag of post.tags; trackBy: trackTag">
+        <span class="footer__tags-item">{{ tag }}</span>
+      </ng-container>
     </div>
   </mat-card-footer>
 </mat-card>
