@@ -33,7 +33,6 @@ export class BlogComponent extends UnSub implements OnInit {
         takeUntil(this.unsubscribe$)
       )
       .subscribe()
-
     this.postService
       .getAllPosts()
       .pipe(

@@ -87,8 +87,8 @@ export class LoginComponent extends UnSub implements OnInit {
     }
 
     this.store.dispatch(login(loginData))
-    // TODO: fix this router
-    this.router.navigate(['/'])
+    // FIXME: fix this router
+    // this.router.navigate(['/'])
   }
 
   private initForm(): void {

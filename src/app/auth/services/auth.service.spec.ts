@@ -3,32 +3,34 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing'
 import {TestBed} from '@angular/core/testing'
-import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
+import {JwtHelperService} from '@auth0/angular-jwt'
 
 import {AuthService} from './auth.service'
 
 describe('AuthService', () => {
   let service: AuthService
   let httpTestingController: HttpTestingController
-  let jwtHelper: JwtHelperService
+  let JwtHelperServiceSpy: any
 
   beforeEach(() => {
+    JwtHelperServiceSpy = jasmine.createSpyObj(JwtHelperService, [
+      'decodeToken',
+    ])
+    JwtHelperServiceSpy.decodeToken.and.returnValue('decoded token')
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         AuthService,
-        {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
-        JwtHelperService,
+        {provide: JwtHelperService, useValue: JwtHelperServiceSpy},
       ],
     })
 
     service = TestBed.inject(AuthService)
-    jwtHelper = TestBed.inject(JwtHelperService)
+    httpTestingController = TestBed.inject(HttpTestingController)
   })
 
   it('should be created', () => {
     expect(service).toBeTruthy()
   })
-
-  xit('checks that ', () => {})
 })

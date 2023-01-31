@@ -18,7 +18,8 @@ interface IRegisterForm {
   email: FormControl<string>
   fullName: FormControl<string>
   password: FormControl<string>
-  avatarUrl: FormControl<string>
+  // avatarUrl: FormControl<string>
+  passwordConfirmation: FormControl<string>
 }
 
 @Component({
@@ -36,7 +37,7 @@ export class RegisterComponent extends UnSub implements OnInit {
     IAuthServerError | undefined
   > = this.store.pipe(select(getServerError))
 
-  private regexpUrl = /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi
+  // private regexpUrl = /[-a-zA-Z0-9@:%_\+.~#?&\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&\/=]*)?/gi
 
   protected get emailErrors(): string {
     if (this.registerForm.controls['email'].hasError('required')) {
@@ -68,15 +69,15 @@ export class RegisterComponent extends UnSub implements OnInit {
       : ''
   }
 
-  protected get avatarUrlErrors(): string {
-    if (this.registerForm.controls['avatarUrl'].hasError('required')) {
-      return "Avatar url can't be empty"
-    }
+  // protected get avatarUrlErrors(): string {
+  //   if (this.registerForm.controls['avatarUrl'].hasError('required')) {
+  //     return "Avatar url can't be empty"
+  //   }
 
-    return this.registerForm.controls['avatarUrl'].hasError('pattern')
-      ? 'Provide a valid url address'
-      : ''
-  }
+  //   return this.registerForm.controls['avatarUrl'].hasError('pattern')
+  //     ? 'Provide a valid url address'
+  //     : ''
+  // }
 
   constructor(
     private store: Store,
@@ -107,14 +108,19 @@ export class RegisterComponent extends UnSub implements OnInit {
   }
 
   protected onSubmit(): void {
-    const newUser: IRegisterData = {
-      email: this.registerForm.value.email?.trim(),
-      fullName: this.registerForm.value.fullName?.trim(),
-      password: this.registerForm.value.password?.trim(),
-      avatarUrl: this.registerForm.value.avatarUrl?.trim(),
-    }
+    const password = this.registerForm.value.password?.trim()
+    const passwordConfirmation = this.registerForm.value.passwordConfirmation?.trim()
 
-    this.store.dispatch(register(newUser))
+    if (passwordConfirmation === password) {
+      const newUser: IRegisterData = {
+        email: this.registerForm.value.email?.trim(),
+        fullName: this.registerForm.value.fullName?.trim(),
+        password: this.registerForm.value.password?.trim(),
+        // avatarUrl: this.registerForm.value.avatarUrl?.trim(),
+      }
+
+      this.store.dispatch(register(newUser))
+    }
   }
 
   private initForm(): void {
@@ -131,9 +137,13 @@ export class RegisterComponent extends UnSub implements OnInit {
         nonNullable: true,
         validators: [Validators.required, Validators.minLength(5)],
       }),
-      avatarUrl: new FormControl('', {
+      // avatarUrl: new FormControl('', {
+      //   nonNullable: true,
+      //   validators: [Validators.pattern(this.regexpUrl)],
+      // }),
+      passwordConfirmation: new FormControl('', {
         nonNullable: true,
-        validators: [Validators.pattern(this.regexpUrl)],
+        validators: [Validators.required],
       }),
     })
   }

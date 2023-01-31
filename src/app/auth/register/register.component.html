@@ -44,11 +44,24 @@
       <mat-error>{{ passwordErrors }}</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-label>Avatar URL</mat-label>
       <input matInput placeholder="Attach URL" formControlName="avatarUrl" />
       <mat-error>
         {{ avatarUrlErrors }}
+      </mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field>
+      <mat-label>Confirm password</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="Confirm password"
+        formControlName="passwordConfirmation"
+      />
+      <mat-error *ngIf="registerForm.hasError('notSame')">
+        Passwords do not match
       </mat-error>
     </mat-form-field>
 
