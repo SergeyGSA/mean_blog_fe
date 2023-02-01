@@ -19,6 +19,15 @@ export class BlogComponent extends UnSub implements OnInit {
   }
 
   ngOnInit(): void {
+    this._getRecentPosts()
+    this._getMostViewedPosts()
+  }
+
+  protected trackPosts(index: number, item: IPost): string {
+    return item.id
+  }
+
+  private _getRecentPosts(): void {
     this.postService
       .getAllPosts()
       .pipe(
@@ -33,6 +42,9 @@ export class BlogComponent extends UnSub implements OnInit {
         takeUntil(this.unsubscribe$)
       )
       .subscribe()
+  }
+
+  private _getMostViewedPosts(): void {
     this.postService
       .getAllPosts()
       .pipe(
@@ -45,9 +57,5 @@ export class BlogComponent extends UnSub implements OnInit {
         takeUntil(this.unsubscribe$)
       )
       .subscribe()
-  }
-
-  protected trackPosts(index: number, item: IPost): string {
-    return item.id
   }
 }

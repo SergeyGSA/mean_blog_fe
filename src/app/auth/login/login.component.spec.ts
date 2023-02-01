@@ -4,12 +4,21 @@ import {NotificationService} from 'src/app/shared/services/notification.service'
 
 import {LoginComponent} from './login.component'
 
+interface INotificationServiceSpy {
+  successHandler: jasmine.Spy
+  errorHandler: jasmine.Spy
+}
+
+interface IRouterSpy {
+  navigate: jasmine.Spy
+}
+
 describe('LoginComponent', () => {
   let component: LoginComponent
   let fixture: ComponentFixture<LoginComponent>
 
-  let notificationServiceSpy: NotificationService
-  let routerSpy: Router
+  let notificationServiceSpy: INotificationServiceSpy
+  let routerSpy: IRouterSpy
 
   beforeEach(async () => {
     notificationServiceSpy = jasmine.createSpyObj(NotificationService, [

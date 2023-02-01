@@ -10,12 +10,12 @@ import {
   IRegisterData,
 } from 'src/app/auth/auth.interface'
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'}),
-}
-
 @Injectable()
 export class AuthService {
+  private httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'}),
+  }
+
   constructor(
     private http: HttpClient,
     private jwtHelperService: JwtHelperService
@@ -26,7 +26,7 @@ export class AuthService {
       .post<IAuthServerResponse>(
         `${environment.API_URL}/auth/register`,
         newUser,
-        httpOptions
+        this.httpOptions
       )
       .pipe(
         map((res) => ({
@@ -41,7 +41,7 @@ export class AuthService {
       .post<IAuthServerResponse>(
         `${environment.API_URL}/auth/login`,
         loginData,
-        httpOptions
+        this.httpOptions
       )
       .pipe(
         map((res) => ({
