@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http/testing'
 
 import {PostService} from './post.service'
+import {environment} from 'src/environments/environment'
 
 const MOCK_POSTS = [
   {id: '62e3d1cf56c89700efe731f0', title: 'Created a new post for testing'},
@@ -38,7 +39,7 @@ describe('PostService', () => {
       expect(post?.title).toBe('Created a new post for testing')
     })
 
-    const req = httpTestingController.expectOne('http://localhost:8080/posts')
+    const req = httpTestingController.expectOne(`${environment.API_URL}/posts`)
     expect(req.request.method)
       .withContext('wrong http method, must be GET')
       .toEqual('GET')
@@ -54,7 +55,7 @@ describe('PostService', () => {
     })
 
     const req = httpTestingController.expectOne(
-      `http://localhost:8080/posts/${testingId}`
+      `${environment.API_URL}/posts/${testingId}`
     )
     expect(req.request.method)
       .withContext('wrong http method, must be GET')
