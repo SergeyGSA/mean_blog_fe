@@ -6,7 +6,7 @@ import {NotificationService} from './notification.service'
 interface IMatSnackBarSpy {
   open: jasmine.Spy
 }
-// TODO: WROTE ALL TESTS
+
 describe('NotificationService', () => {
   let service: NotificationService
   let matSnackBarSpy: IMatSnackBarSpy

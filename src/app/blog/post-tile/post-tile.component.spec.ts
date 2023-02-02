@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {PostTileComponent} from './post-tile.component'
 
-describe('ArticleTileComponent', () => {
+describe('PostTileComponent', () => {
   let component: PostTileComponent
   let fixture: ComponentFixture<PostTileComponent>
 

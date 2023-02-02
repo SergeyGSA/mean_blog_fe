@@ -23,6 +23,11 @@
     text-align: center;
   }
 
+  &-passwords {
+    display: flex;
+    flex-direction: column;
+  }
+
   &-btn {
     margin-top: $base * 5;
   }
