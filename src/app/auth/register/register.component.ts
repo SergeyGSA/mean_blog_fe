@@ -87,7 +87,7 @@ export class RegisterComponent extends UnSub implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initForm()
+    this._initForm()
     this.store.dispatch(signUp())
 
     this.loaded$
@@ -123,7 +123,7 @@ export class RegisterComponent extends UnSub implements OnInit {
     }
   }
 
-  private initForm(): void {
+  private _initForm(): void {
     this.registerForm = new FormGroup({
       email: new FormControl('', {
         nonNullable: true,

@@ -13,10 +13,10 @@ interface IJwtHelperServiceSpy {
   decodeToken: jasmine.Spy
 }
 
-const MOCK_LOGIN_DATA: IAuthServerResponse = {
+const MOCK_SERVER_RESPONSE_DATA: IAuthServerResponse = {
   accessToken: '',
   refreshToken: '',
-  user: {email: '', id: '', fullName: ''},
+  user: {email: 'test@email.com', id: '', fullName: 'fullName test'},
   id: '',
   email: 'test@email.com',
   iat: 0,
@@ -49,8 +49,10 @@ describe('AuthService', () => {
   })
 
   it('should login method work', () => {
+    const loginInputData = {email: 'test@email.com', password: ''}
+
     service
-      .login({email: 'test@email.com', password: ''})
+      .login(loginInputData)
       .subscribe((serverResponse: IAuthServerResponse) => {
         expect(serverResponse)
           .withContext("server doesn't returned response")
@@ -61,7 +63,7 @@ describe('AuthService', () => {
           .toBe('test@email.com')
 
         expect(JwtHelperServiceSpy.decodeToken)
-          .withContext('have to be called one time')
+          .withContext('JwtHelperService have to be called one time')
           .toHaveBeenCalledTimes(1)
       })
 
@@ -71,7 +73,43 @@ describe('AuthService', () => {
     expect(req.request.method)
       .withContext('wrong method, must be POST')
       .toEqual('POST')
-    req.flush(MOCK_LOGIN_DATA)
+    req.flush(MOCK_SERVER_RESPONSE_DATA)
+  })
+
+  it('should register method work', () => {
+    const registerInputData = {
+      email: 'test@email.com',
+      fullName: 'fullName test',
+      password: '',
+    }
+
+    service
+      .register(registerInputData)
+      .subscribe((serverResponse: IAuthServerResponse) => {
+        expect(serverResponse)
+          .withContext("server doesn't returned response")
+          .toBeTruthy()
+
+        expect(serverResponse.user.email)
+          .withContext("error in user's email")
+          .toBe('test@email.com')
+
+        expect(serverResponse.user.fullName)
+          .withContext("error in user's fullName")
+          .toBe('fullName test')
+
+        expect(JwtHelperServiceSpy.decodeToken)
+          .withContext('JwtHelperService have to be called one time')
+          .toHaveBeenCalledTimes(1)
+      })
+
+    const req = httpTestingController.expectOne(
+      `${environment.API_URL}/auth/register`
+    )
+    expect(req.request.method)
+      .withContext('wrong method, must be POST')
+      .toEqual('POST')
+    req.flush(MOCK_SERVER_RESPONSE_DATA)
   })
 
   afterEach(() => {
