@@ -47,15 +47,15 @@ describe('PostService', () => {
   })
 
   it('should return one post by id', () => {
-    const testingId = '62e3d1cf56c89700efe731f1'
-    const post = postService.getOnePost(testingId).subscribe((post) => {
+    const testingPostId = '62e3d1cf56c89700efe731f1'
+    const post = postService.getOnePost(testingPostId).subscribe((post) => {
       expect(post).withContext("can't find post by id").toBeTruthy()
 
       expect(post?.title).toBe("Post's title to test get one post")
     })
 
     const req = httpTestingController.expectOne(
-      `${environment.API_URL}/posts/${testingId}`
+      `${environment.API_URL}/posts/${testingPostId}`
     )
     expect(req.request.method)
       .withContext('wrong http method, must be GET')

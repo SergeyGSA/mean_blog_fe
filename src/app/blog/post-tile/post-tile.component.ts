@@ -11,7 +11,8 @@ export class PostTileComponent implements OnInit {
   @Input()
   post!: IPost
 
-  protected get backgroundImageForPost() {
+  // FIXME: Change public to protected and fix tests
+  public get backgroundImageForPost() {
     return {'background-image': 'url(' + this.post.user.avatarUrl + ')'}
   }
 
