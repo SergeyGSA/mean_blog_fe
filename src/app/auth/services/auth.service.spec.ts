@@ -23,6 +23,7 @@ const MOCK_SERVER_RESPONSE_DATA: IAuthServerResponse = {
   exp: 0,
 }
 
+// TODO: Зроби, будь ласка, ревью цих юніт тестів
 describe('AuthService', () => {
   let service: AuthService
   let httpTestingController: HttpTestingController

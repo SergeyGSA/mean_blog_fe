@@ -10,6 +10,7 @@ import {
   IRegisterData,
 } from 'src/app/auth/auth.interface'
 
+// TODO: Зроби, будь ласка, ревью юніт тестів цього сервісу
 @Injectable()
 export class AuthService {
   private httpOptions = {
