@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {of} from 'rxjs'
 import {IPost} from '../post.interface'
@@ -24,6 +25,7 @@ describe('BlogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [BlogComponent],
       providers: [{provide: PostService, useValue: postServiceSpy}],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents()
   })
 

@@ -22,7 +22,7 @@ const expectedPost = {
   createdAt: new Date()
 }
 
-fdescribe('PostTileComponent', () => {
+describe('PostTileComponent', () => {
   let component: PostTileComponent
   let fixture: ComponentFixture<PostTileComponent>
 
@@ -52,6 +52,17 @@ fdescribe('PostTileComponent', () => {
     expect(component).toBeTruthy()
   })
 
+  xit('should display buttons when user is authorized', () => {
+    const buttonsContainer = fixture.debugElement.query(By.css('.post-card__actions'))
+    expect(buttonsContainer.nativeElement.innerText).toContain('Edit')
+    expect(buttonsContainer.nativeElement.innerText).toContain('Delete')
+  })
+
+  it('should not display buttons when user is not authorized', () => {
+    const buttonsContainer = fixture.debugElement.query(By.css('.post-card__actions'))
+    expect(buttonsContainer.nativeElement.innerText).toBeFalsy()
+  })
+
   // FIXME: Fix this test
   it('should display correct @Input data', () => {   
     const expectedPostTitle = expectedPost.title
@@ -67,12 +78,18 @@ fdescribe('PostTileComponent', () => {
     expect(postEl.textContent).withContext('wrong user\'s name').toContain(expectedPostUser.fullName)
   })
 
-  it('should return correct property', () => {
+  it('should return correct property by getter backgroundImageForPost', () => {
     spyOnProperty(component, 'backgroundImageForPost', 'get')
       .and
       .returnValue({'background-image': component.post.user.avatarUrl!})
       
     expect(component.backgroundImageForPost).toBeTruthy()
     expect(component.backgroundImageForPost).toEqual({'background-image': 'tested avatar url'})
+  })
+
+  it('should return item for ngFor', () => {
+    const trackTagMethod = component['trackTag'](0, 'test')
+    expect(trackTagMethod).withContext('doesn\'t exist').toBeTruthy()
+    expect(trackTagMethod).withContext('return wrong value').toEqual('test')
   })
 })
