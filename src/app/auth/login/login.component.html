@@ -13,8 +13,17 @@
         required
         formControlName="email"
       />
-      <!-- FIXME: Fix next string -->
-      <!-- <mat-error>{{ getErrorMessage(loginForm.controls[FormControls.Email]) }}</mat-error> -->
+
+      <mat-error *ngIf="loginForm.controls.email.hasError('required'); else formErrorEmail">
+        {{ getErrorMessage(loginForm, formControls.Email, formErrors.Required) }}
+      </mat-error>
+
+      <ng-template #formErrorEmail>
+        <mat-error>
+          {{ getErrorMessage(loginForm, formControls.Email, formErrors.Email) }}
+        </mat-error>
+      </ng-template>
+      
     </mat-form-field>
 
     <mat-form-field>
@@ -26,8 +35,7 @@
         required
         formControlName="password"
       />
-      <!-- FIXME: Fix next string -->
-      <!-- <mat-error>{{ getErrorMessage }}</mat-error> -->
+      <mat-error>{{ getErrorMessage(loginForm, formControls.Password, formErrors.Required) }}</mat-error>
     </mat-form-field>
 
     <button

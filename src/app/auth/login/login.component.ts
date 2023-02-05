@@ -14,16 +14,7 @@ import {
 import {IAuthServerError, ILoginData} from 'src/app/auth/auth.interface'
 import {NotificationService} from 'src/app/shared/services/notification.service'
 import {UnSub} from 'src/app/shared/UnSub.class'
-
-enum FormControls {
-  Email = 'email',
-  Password = 'password'
-}
-
-enum FormErrors { 
-  Required = 'required',
-  Email = 'email'
-}
+import {FormErrorMessageService, FormControls, FormErrors} from 'src/app/auth/services/form-error-message.service' 
 
 interface ILoginForm {
   [FormControls.Email]: FormControl<string>
@@ -44,35 +35,18 @@ export class LoginComponent extends UnSub implements OnInit {
     IAuthServerError | undefined
   > = this.store.pipe(select(getServerError))
 
-  private formErrorMessages: {[key in FormControls]: {[key in FormErrors]?: string}} = {
-    [FormControls.Email]: {
-      [FormErrors.Email]: 'Not a valid email',
-      [FormErrors.Required]: "Email can't be empty"
-    },
-    [FormControls.Password]: {
-      [FormErrors.Required]: "Password can't be empty"
-    },
+  protected get formControls(): typeof FormControls {
+    return FormControls
   }
-  
-  // protected get emailErrors(): string {
-  //   if (this.loginForm.controls['email'].hasError('required')) {
-  //     return "Email can't be empty"
-  //   }
 
-  //   return this.loginForm.controls['email'].hasError('email')
-  //     ? 'Not a valid email'
-  //     : ''
-  // }
-
-  // protected get passwordErrors(): string {
-  //   return this.loginForm.controls['password'].hasError('required')
-  //     ? "Password can't be empty"
-  //     : ''
-  // }
+  protected get formErrors(): typeof FormErrors {
+    return FormErrors
+  }
 
   constructor(
     private store: Store,
     private notificationService: NotificationService,
+    private formErrorMessageService: FormErrorMessageService,
     private router: Router
   ) {
     super()
@@ -99,15 +73,6 @@ export class LoginComponent extends UnSub implements OnInit {
       })
   }
 
-  protected getErrorMessage(formControls: FormControls, formErrors: FormErrors): string | undefined | null {
-    const isErrorPresent = this.loginForm.controls[formControls].hasError(formErrors)
-    if (!isErrorPresent) {
-      return null
-    }
-
-    return this.formErrorMessages[formControls][formErrors] 
-  }
-
   protected onSubmit(): void {
     const loginData: ILoginData = {
       email: this.loginForm.value.email?.trim(),
@@ -115,8 +80,11 @@ export class LoginComponent extends UnSub implements OnInit {
     }
 
     this.store.dispatch(login(loginData))
-    // FIXME: fix this router
     this.router.navigate(['/'])
+  }
+
+  protected getErrorMessage(form: FormGroup, formControls: FormControls, formErrors: FormErrors): string | undefined | null {
+    return this.formErrorMessageService.showErrorMessage(form, formControls, formErrors)
   }
 
   private _initForm(): void {
