@@ -7,7 +7,6 @@ interface IMatSnackBarSpy {
   open: jasmine.Spy
 }
 
-// TODO: Зроби, будь ласка, ревью цих юніт тестів
 describe('NotificationService', () => {
   let service: NotificationService
   let matSnackBarSpy: IMatSnackBarSpy

@@ -3,46 +3,44 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing'
 import {TestBed} from '@angular/core/testing'
-import {JwtHelperService} from '@auth0/angular-jwt'
+import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt'
 
 import {environment} from 'src/environments/environment'
 import {AuthService} from './auth.service'
 import {IAuthServerResponse} from 'src/app/auth/auth.interface'
 
-interface IJwtHelperServiceSpy {
-  decodeToken: jasmine.Spy
-}
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAifQ._aG0ukzancZqhL1wvBTJh8G8d3Det5n0WKcPo5C0DCY'
 
-const MOCK_SERVER_RESPONSE_DATA: IAuthServerResponse = {
-  accessToken: '',
+const MOCK_SERVER_RESPONSE_DATA: Partial<IAuthServerResponse> = {
+  accessToken: token,
   refreshToken: '',
   user: {email: 'test@email.com', id: '', fullName: 'fullName test'},
-  id: '',
   email: 'test@email.com',
   iat: 0,
   exp: 0,
 }
 
-// TODO: Зроби, будь ласка, ревью цих юніт тестів
 describe('AuthService', () => {
   let service: AuthService
   let httpTestingController: HttpTestingController
 
-  let JwtHelperServiceSpy: IJwtHelperServiceSpy
+  let jwtHelperService: JwtHelperService
 
   beforeEach(() => {
-    JwtHelperServiceSpy = jasmine.createSpyObj(['decodeToken'])
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         AuthService,
-        {provide: JwtHelperService, useValue: JwtHelperServiceSpy},
+        JwtHelperService,
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
       ],
     })
 
     service = TestBed.inject(AuthService)
+    jwtHelperService = TestBed.inject(JwtHelperService)
     httpTestingController = TestBed.inject(HttpTestingController)
+
+    spyOn(jwtHelperService, 'decodeToken').and.callThrough()
   })
 
   it('should be created', () => {
@@ -63,9 +61,13 @@ describe('AuthService', () => {
           .withContext("wrong user's email")
           .toBe('test@email.com')
 
-        expect(JwtHelperServiceSpy.decodeToken)
+        expect(jwtHelperService.decodeToken)
           .withContext('JwtHelperService have to be called one time')
           .toHaveBeenCalledTimes(1)
+
+        expect(serverResponse.id)
+          .withContext('id which decoded by JwtHelperService doesn\'t match')
+          .toBe('1234567890')
       })
 
     const req = httpTestingController.expectOne(
@@ -99,9 +101,13 @@ describe('AuthService', () => {
           .withContext("error in user's fullName")
           .toBe('fullName test')
 
-        expect(JwtHelperServiceSpy.decodeToken)
+        expect(jwtHelperService.decodeToken)
           .withContext('JwtHelperService have to be called one time')
           .toHaveBeenCalledTimes(1)
+
+        expect(serverResponse.id)
+          .withContext('id which decoded by JwtHelperService doesn\'t match')
+          .toBe('1234567890')
       })
 
     const req = httpTestingController.expectOne(
