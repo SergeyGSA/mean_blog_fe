@@ -13,7 +13,8 @@
         required
         formControlName="email"
       />
-      <mat-error>{{ emailErrors }}</mat-error>
+      <!-- FIXME: Fix next string -->
+      <!-- <mat-error>{{ getErrorMessage(loginForm.controls[FormControls.Email]) }}</mat-error> -->
     </mat-form-field>
 
     <mat-form-field>
@@ -25,7 +26,8 @@
         required
         formControlName="password"
       />
-      <mat-error>{{ passwordErrors }}</mat-error>
+      <!-- FIXME: Fix next string -->
+      <!-- <mat-error>{{ getErrorMessage }}</mat-error> -->
     </mat-form-field>
 
     <button

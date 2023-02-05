@@ -15,11 +15,20 @@ import {IAuthServerError, ILoginData} from 'src/app/auth/auth.interface'
 import {NotificationService} from 'src/app/shared/services/notification.service'
 import {UnSub} from 'src/app/shared/UnSub.class'
 
-interface ILoginForm {
-  email: FormControl<string>
-  password: FormControl<string>
+enum FormControls {
+  Email = 'email',
+  Password = 'password'
 }
 
+enum FormErrors { 
+  Required = 'required',
+  Email = 'email'
+}
+
+interface ILoginForm {
+  [FormControls.Email]: FormControl<string>
+  [FormControls.Password]: FormControl<string>
+}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,21 +44,31 @@ export class LoginComponent extends UnSub implements OnInit {
     IAuthServerError | undefined
   > = this.store.pipe(select(getServerError))
 
-  protected get emailErrors(): string {
-    if (this.loginForm.controls['email'].hasError('required')) {
-      return "Email can't be empty"
-    }
-
-    return this.loginForm.controls['email'].hasError('email')
-      ? 'Not a valid email'
-      : ''
+  private formErrorMessages: {[key in FormControls]: {[key in FormErrors]?: string}} = {
+    [FormControls.Email]: {
+      [FormErrors.Email]: 'Not a valid email',
+      [FormErrors.Required]: "Email can't be empty"
+    },
+    [FormControls.Password]: {
+      [FormErrors.Required]: "Password can't be empty"
+    },
   }
+  
+  // protected get emailErrors(): string {
+  //   if (this.loginForm.controls['email'].hasError('required')) {
+  //     return "Email can't be empty"
+  //   }
 
-  protected get passwordErrors(): string {
-    return this.loginForm.controls['password'].hasError('required')
-      ? "Password can't be empty"
-      : ''
-  }
+  //   return this.loginForm.controls['email'].hasError('email')
+  //     ? 'Not a valid email'
+  //     : ''
+  // }
+
+  // protected get passwordErrors(): string {
+  //   return this.loginForm.controls['password'].hasError('required')
+  //     ? "Password can't be empty"
+  //     : ''
+  // }
 
   constructor(
     private store: Store,
@@ -60,7 +79,7 @@ export class LoginComponent extends UnSub implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initForm()
+    this._initForm()
     this.store.dispatch(signIn())
 
     this.loaded$
@@ -80,6 +99,15 @@ export class LoginComponent extends UnSub implements OnInit {
       })
   }
 
+  protected getErrorMessage(formControls: FormControls, formErrors: FormErrors): string | undefined | null {
+    const isErrorPresent = this.loginForm.controls[formControls].hasError(formErrors)
+    if (!isErrorPresent) {
+      return null
+    }
+
+    return this.formErrorMessages[formControls][formErrors] 
+  }
+
   protected onSubmit(): void {
     const loginData: ILoginData = {
       email: this.loginForm.value.email?.trim(),
@@ -91,13 +119,13 @@ export class LoginComponent extends UnSub implements OnInit {
     this.router.navigate(['/'])
   }
 
-  private initForm(): void {
+  private _initForm(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', {
+      [FormControls.Email]: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required, Validators.email],
       }),
-      password: new FormControl('', {
+      [FormControls.Password]: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required],
       }),
