@@ -8,10 +8,11 @@ import {IPost} from 'src/app/blog/post.interface'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostTileComponent implements OnInit {
-  @Input()
-  post!: IPost
+  protected isDisplayButtons: boolean = false
 
-  // FIXME: Change public to protected and fix tests
+  @Input()
+  public post!: IPost
+
   public get backgroundImageForPost() {
     return {'background-image': 'url(' + this.post.user.avatarUrl + ')'}
   }

@@ -14,12 +14,16 @@ import {
 import {IAuthServerError, ILoginData} from 'src/app/auth/auth.interface'
 import {NotificationService} from 'src/app/shared/services/notification.service'
 import {UnSub} from 'src/app/shared/UnSub.class'
+import {
+  FormErrorMessageService,
+  FormFields,
+  FormErrors,
+} from 'src/app/auth/services/form-error-message.service'
 
 interface ILoginForm {
-  email: FormControl<string>
-  password: FormControl<string>
+  [FormFields.Email]: FormControl<string>
+  [FormFields.Password]: FormControl<string>
 }
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,25 +39,18 @@ export class LoginComponent extends UnSub implements OnInit {
     IAuthServerError | undefined
   > = this.store.pipe(select(getServerError))
 
-  protected get emailErrors(): string {
-    if (this.loginForm.controls['email'].hasError('required')) {
-      return "Email can't be empty"
-    }
-
-    return this.loginForm.controls['email'].hasError('email')
-      ? 'Not a valid email'
-      : ''
+  protected get formFields(): typeof FormFields {
+    return FormFields
   }
 
-  protected get passwordErrors(): string {
-    return this.loginForm.controls['password'].hasError('required')
-      ? "Password can't be empty"
-      : ''
+  protected get formErrors(): typeof FormErrors {
+    return FormErrors
   }
 
   constructor(
     private store: Store,
     private notificationService: NotificationService,
+    private formErrorMessageService: FormErrorMessageService,
     private router: Router
   ) {
     super()
@@ -90,13 +87,25 @@ export class LoginComponent extends UnSub implements OnInit {
     this.router.navigate(['/'])
   }
 
+  protected getErrorMessage(
+    form: FormGroup,
+    formControls: FormFields,
+    formErrors: FormErrors
+  ): string | undefined | null {
+    return this.formErrorMessageService.displayErrorMessage(
+      form,
+      formControls,
+      formErrors
+    )
+  }
+
   private _initForm(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', {
+      [FormFields.Email]: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required, Validators.email],
       }),
-      password: new FormControl('', {
+      [FormFields.Password]: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required],
       }),

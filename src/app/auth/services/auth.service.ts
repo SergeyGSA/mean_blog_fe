@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http'
+import {HttpClient} from '@angular/common/http'
 import {Injectable} from '@angular/core'
 import {map, Observable} from 'rxjs'
 import {JwtHelperService} from '@auth0/angular-jwt'
@@ -12,10 +12,6 @@ import {
 
 @Injectable()
 export class AuthService {
-  private httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'}),
-  }
-
   constructor(
     private http: HttpClient,
     private jwtHelperService: JwtHelperService
@@ -26,7 +22,6 @@ export class AuthService {
       .post<IAuthServerResponse>(
         `${environment.API_URL}/auth/register`,
         newUser,
-        this.httpOptions
       )
       .pipe(
         map((res) => ({
@@ -41,7 +36,6 @@ export class AuthService {
       .post<IAuthServerResponse>(
         `${environment.API_URL}/auth/login`,
         loginData,
-        this.httpOptions
       )
       .pipe(
         map((res) => ({
