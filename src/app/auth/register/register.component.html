@@ -18,7 +18,24 @@
         formControlName="email"
         required
       />
-      <mat-error>{{ checkEmailErrors }}</mat-error>
+      <mat-error>
+        <ng-container
+          *ngIf="
+            registerForm.controls.email.hasError('required');
+            else formErrorEmail
+          "
+        >
+          {{
+            getErrorMessage(registerForm, formFields.Email, formErrors.Required)
+          }}
+        </ng-container>
+
+        <ng-template #formErrorEmail>
+          {{
+            getErrorMessage(registerForm, formFields.Email, formErrors.Email)
+          }}
+        </ng-template>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -29,10 +46,35 @@
         formControlName="fullName"
         required
       />
-      <mat-error>{{ checkFullNameErrors }}</mat-error>
+      <mat-error>
+        <ng-container
+          *ngIf="
+            registerForm.controls.fullName.hasError('required');
+            else formErrorFullName
+          "
+        >
+          {{
+            getErrorMessage(
+              registerForm,
+              formFields.FullName,
+              formErrors.Required
+            )
+          }}
+        </ng-container>
+
+        <ng-template #formErrorFullName>
+          {{
+            getErrorMessage(
+              registerForm,
+              formFields.FullName,
+              formErrors.MinLength
+            )
+          }}
+        </ng-template>
+      </mat-error>
     </mat-form-field>
 
-    <div class="form-passwords" formGroupName="passwords">
+    <div class="form-passwords">
       <mat-form-field>
         <mat-label>Password</mat-label>
         <input
@@ -42,7 +84,32 @@
           formControlName="password"
           required
         />
-        <mat-error>{{ checkPasswordErrors }}</mat-error>
+        <mat-error>
+          <ng-container
+            *ngIf="
+              registerForm.controls.password.hasError('required');
+              else formErrorPassword
+            "
+          >
+            {{
+              getErrorMessage(
+                registerForm,
+                formFields.Password,
+                formErrors.Required
+              )
+            }}
+          </ng-container>
+
+          <ng-template #formErrorPassword>
+            {{
+              getErrorMessage(
+                registerForm,
+                formFields.Password,
+                formErrors.MinLength
+              )
+            }}
+          </ng-template>
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -55,7 +122,19 @@
           required
         />
         <mat-error>
-          {{ checkPasswordConfirmationErrors }}
+          <ng-container
+            *ngIf="
+              registerForm.controls.passwordConfirmation.hasError('required')
+            "
+          >
+            {{
+              getErrorMessage(
+                registerForm,
+                formFields.PasswordConfirmation,
+                formErrors.Required
+              )
+            }}
+          </ng-container>
         </mat-error>
       </mat-form-field>
     </div>

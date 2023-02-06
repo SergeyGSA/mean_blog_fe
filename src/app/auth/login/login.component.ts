@@ -14,11 +14,15 @@ import {
 import {IAuthServerError, ILoginData} from 'src/app/auth/auth.interface'
 import {NotificationService} from 'src/app/shared/services/notification.service'
 import {UnSub} from 'src/app/shared/UnSub.class'
-import {FormErrorMessageService, FormControls, FormErrors} from 'src/app/auth/services/form-error-message.service' 
+import {
+  FormErrorMessageService,
+  FormFields,
+  FormErrors,
+} from 'src/app/auth/services/form-error-message.service'
 
 interface ILoginForm {
-  [FormControls.Email]: FormControl<string>
-  [FormControls.Password]: FormControl<string>
+  [FormFields.Email]: FormControl<string>
+  [FormFields.Password]: FormControl<string>
 }
 @Component({
   selector: 'app-login',
@@ -35,8 +39,8 @@ export class LoginComponent extends UnSub implements OnInit {
     IAuthServerError | undefined
   > = this.store.pipe(select(getServerError))
 
-  protected get formControls(): typeof FormControls {
-    return FormControls
+  protected get formFields(): typeof FormFields {
+    return FormFields
   }
 
   protected get formErrors(): typeof FormErrors {
@@ -83,17 +87,25 @@ export class LoginComponent extends UnSub implements OnInit {
     this.router.navigate(['/'])
   }
 
-  protected getErrorMessage(form: FormGroup, formControls: FormControls, formErrors: FormErrors): string | undefined | null {
-    return this.formErrorMessageService.showErrorMessage(form, formControls, formErrors)
+  protected getErrorMessage(
+    form: FormGroup,
+    formControls: FormFields,
+    formErrors: FormErrors
+  ): string | undefined | null {
+    return this.formErrorMessageService.displayErrorMessage(
+      form,
+      formControls,
+      formErrors
+    )
   }
 
   private _initForm(): void {
     this.loginForm = new FormGroup({
-      [FormControls.Email]: new FormControl('', {
+      [FormFields.Email]: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required, Validators.email],
       }),
-      [FormControls.Password]: new FormControl('', {
+      [FormFields.Password]: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required],
       }),

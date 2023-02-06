@@ -14,16 +14,22 @@
         formControlName="email"
       />
 
-      <mat-error *ngIf="loginForm.controls.email.hasError('required'); else formErrorEmail">
-        {{ getErrorMessage(loginForm, formControls.Email, formErrors.Required) }}
-      </mat-error>
+      <mat-error>
+        <ng-container
+          *ngIf="
+            loginForm.controls.email.hasError('required');
+            else formErrorEmail
+          "
+        >
+          {{
+            getErrorMessage(loginForm, formFields.Email, formErrors.Required)
+          }}
+        </ng-container>
 
-      <ng-template #formErrorEmail>
-        <mat-error>
-          {{ getErrorMessage(loginForm, formControls.Email, formErrors.Email) }}
-        </mat-error>
-      </ng-template>
-      
+        <ng-template #formErrorEmail>
+          {{ getErrorMessage(loginForm, formFields.Email, formErrors.Email) }}
+        </ng-template>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -35,7 +41,9 @@
         required
         formControlName="password"
       />
-      <mat-error>{{ getErrorMessage(loginForm, formControls.Password, formErrors.Required) }}</mat-error>
+      <mat-error>{{
+        getErrorMessage(loginForm, formFields.Password, formErrors.Required)
+      }}</mat-error>
     </mat-form-field>
 
     <button
