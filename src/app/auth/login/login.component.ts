@@ -60,7 +60,7 @@ export class LoginComponent extends UnSub implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initForm()
+    this._initForm()
     this.store.dispatch(signIn())
 
     this.loaded$
@@ -87,11 +87,10 @@ export class LoginComponent extends UnSub implements OnInit {
     }
 
     this.store.dispatch(login(loginData))
-    // FIXME: fix this router
-    // this.router.navigate(['/'])
+    this.router.navigate(['/'])
   }
 
-  private initForm(): void {
+  private _initForm(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', {
         nonNullable: true,
