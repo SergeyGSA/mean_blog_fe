@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core'
+import {ChangeDetectionStrategy, Component, OnInit, Self} from '@angular/core'
 import {
   AbstractControl,
   FormBuilder,
@@ -18,7 +18,7 @@ import {
 } from 'src/app/store/auth-store/auth.selectors'
 import {signUp} from 'src/app/store/shared-store/active-nav/active-nav.actions'
 import {NotificationService} from 'src/app/shared/services/notification.service'
-import {UnSub} from 'src/app/shared/UnSub.class'
+import {UnsubscribeService} from 'src/app/shared/services/unsubscribe.service'
 
 interface IPasswords {
   password: FormControl<string>
@@ -34,9 +34,10 @@ interface IRegisterForm {
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
+  providers: [UnsubscribeService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent extends UnSub implements OnInit {
+export class RegisterComponent implements OnInit {
   protected registerForm!: FormGroup<IRegisterForm>
 
   protected loading$: Observable<boolean> = this.store.pipe(select(getLoading))
@@ -99,10 +100,9 @@ export class RegisterComponent extends UnSub implements OnInit {
   constructor(
     private store: Store,
     private notificationService: NotificationService,
-    private fb: FormBuilder
-  ) {
-    super()
-  }
+    private fb: FormBuilder,
+    @Self() private readonly unsubscribe$: UnsubscribeService
+  ) {}
 
   ngOnInit(): void {
     this._initForm()

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core'
+import {ChangeDetectionStrategy, Component, OnInit, Self} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {select, Store} from '@ngrx/store'
 import {Observable, takeUntil} from 'rxjs'
@@ -13,7 +13,7 @@ import {
 } from 'src/app/store/auth-store/auth.selectors'
 import {IAuthServerError, ILoginData} from 'src/app/auth/auth.interface'
 import {NotificationService} from 'src/app/shared/services/notification.service'
-import {UnSub} from 'src/app/shared/UnSub.class'
+import {UnsubscribeService} from 'src/app/shared/services/unsubscribe.service'
 
 interface ILoginForm {
   email: FormControl<string>
@@ -24,9 +24,10 @@ interface ILoginForm {
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  providers: [UnsubscribeService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent extends UnSub implements OnInit {
+export class LoginComponent implements OnInit {
   protected loginForm!: FormGroup<ILoginForm>
 
   protected loaded$: Observable<boolean> = this.store.pipe(select(getLoaded))
@@ -54,10 +55,9 @@ export class LoginComponent extends UnSub implements OnInit {
   constructor(
     private store: Store,
     private notificationService: NotificationService,
-    private router: Router
-  ) {
-    super()
-  }
+    private router: Router,
+    @Self() private readonly unsubscribe$: UnsubscribeService
+  ) {}
 
   ngOnInit(): void {
     this._initForm()
