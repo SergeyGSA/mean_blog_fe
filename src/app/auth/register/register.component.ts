@@ -18,16 +18,28 @@ import {
 } from 'src/app/store/auth-store/auth.selectors'
 import {signUp} from 'src/app/store/shared-store/active-nav/active-nav.actions'
 import {NotificationService} from 'src/app/shared/services/notification.service'
+import {
+  FormErrorMessageService,
+  FormErrors,
+  FormFields,
+} from 'src/app/auth/services/form-error-message.service'
 import {UnsubscribeService} from 'src/app/shared/services/unsubscribe.service'
 
 interface IPasswords {
   password: FormControl<string>
   passwordConfirmation: FormControl<string>
 }
+
+// interface IPasswordsGroup {
+//   password: FormControl<string>
+//   passwordConfirmation: FormControl<string>
+// }
 interface IRegisterForm {
   email: FormControl<string>
   fullName: FormControl<string>
-  passwords: FormGroup<IPasswords>
+  // passwordsGroup: FormGroup<IPasswordsGroup>
+  password: FormControl<string>
+  passwordConfirmation: FormControl<string>
 }
 
 @Component({
@@ -46,64 +58,21 @@ export class RegisterComponent implements OnInit {
     IAuthServerError | undefined
   > = this.store.pipe(select(getServerError))
 
-  protected get checkEmailErrors(): string {
-    if (this.registerForm.controls['email'].hasError('required')) {
-      return "Email can't be empty"
-    }
-
-    return this.registerForm.controls['email'].hasError('email')
-      ? 'Not a valid email'
-      : ''
+  protected get formFields(): typeof FormFields {
+    return FormFields
   }
 
-  protected get checkFullNameErrors(): string {
-    if (this.registerForm.controls['fullName'].hasError('required')) {
-      return "Full name can't be empty"
-    }
-
-    return this.registerForm.controls['fullName'].hasError('minlength')
-      ? 'Full name must be more than 3 symbols'
-      : ''
-  }
-
-  protected get checkPasswordErrors(): string {
-    if (
-      this.registerForm.controls.passwords.controls.password.hasError(
-        'required'
-      )
-    ) {
-      return "Password can't be empty"
-    }
-
-    return this.registerForm.controls.passwords.controls.password.hasError(
-      'minlength'
-    )
-      ? 'Password must be more than 5 symbols'
-      : ''
-  }
-
-  protected get checkPasswordConfirmationErrors(): string {
-    if (
-      this.registerForm.controls.passwords.controls.passwordConfirmation.hasError(
-        'required'
-      )
-    ) {
-      return "Confirm password can't be empty"
-    }
-    return this.registerForm.controls.passwords.controls.passwordConfirmation.hasError(
-      'passwordMismatch'
-    )
-      ? "Passwords don't match"
-      : ''
+  protected get formErrors(): typeof FormErrors {
+    return FormErrors
   }
 
   constructor(
     private store: Store,
     private notificationService: NotificationService,
     private fb: FormBuilder,
+    private formErrorMessageService: FormErrorMessageService,
     @Self() private readonly unsubscribe$: UnsubscribeService
   ) {}
-
   ngOnInit(): void {
     this._initForm()
     this.store.dispatch(signUp())
@@ -129,10 +98,22 @@ export class RegisterComponent implements OnInit {
     const newUser: IRegisterData = {
       email: this.registerForm.value.email?.trim(),
       fullName: this.registerForm.value.fullName?.trim(),
-      password: this.registerForm.value.passwords?.password?.trim(),
+      password: this.registerForm.value.password?.trim(),
     }
 
     this.store.dispatch(register(newUser))
+  }
+
+  protected getErrorMessage(
+    form: FormGroup,
+    formControls: FormFields,
+    formErrors: FormErrors
+  ): string | undefined | null {
+    return this.formErrorMessageService.displayErrorMessage(
+      form,
+      formControls,
+      formErrors
+    )
   }
 
   private _initForm(): void {
@@ -145,27 +126,22 @@ export class RegisterComponent implements OnInit {
         nonNullable: true,
         validators: [Validators.required, Validators.minLength(3)],
       }),
-      passwords: this.fb.group(
-        {
-          password: new FormControl('', {
-            nonNullable: true,
-            validators: [Validators.required, Validators.minLength(5)],
-          }),
-          passwordConfirmation: new FormControl('', {
-            nonNullable: true,
-            validators: [Validators.required],
-          }),
-        },
-        {validator: this._passwordConfirming}
-      ),
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(5)],
+      }),
+      passwordConfirmation: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
     })
   }
 
-  private _passwordConfirming(c: AbstractControl): {invalid: boolean} {
-    if (c.get('password')?.value !== c.get('confirm_password')?.value) {
-      return {invalid: true}
-    }
+  // private _passwordConfirming(c: AbstractControl): {invalid: boolean} {
+  //   if (c.get('password')?.value !== c.get('confirm_password')?.value) {
+  //     return {invalid: true}
+  //   }
 
-    return {invalid: false}
-  }
+  //   return {invalid: false}
+  // }
 }
